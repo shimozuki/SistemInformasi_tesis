@@ -53,8 +53,8 @@ INSERT INTO `auths` (`id_auth`, `username`, `password`, `hak_akses`, `created_at
 ('A301220OcQ', '0430067701', '$2y$10$Fi9VD.DBEbIl17pm55p.4.uR30KnelEUYloWNSKmxRA/ZpXdP1omW', 'dosen', '2020-12-30 04:13:33', NULL),
 ('A301220OLP', 'A3.1700033', '$2y$10$Hq4/lwi2qCnFNKBgrxKjBuwSR9wVeibeYr/u6bHRkALo9pPF2sU5m', 'mahasiswa', '2020-12-30 04:06:20', NULL),
 ('A301220Trd', '0428058704', '$2y$10$GOgoqZ1UFJLyy9ZwcsXvvO8kHQEEST4Oc/w9Zf9rrzI8bk.Jbxo/K', 'prodi', '2020-12-30 04:16:26', NULL),
-('A301220TVF', 'A2.1700135', '$2y$10$aJEKXHqkiqQYInNMu0XxPO93DM4M1oVoJuTxu0PIcvzH39h01NCMm', 'mahasiswa', '2020-12-30 09:37:14', NULL),
-('A301220VzR', '0430048901', '$2y$10$1Y.bWo0W31ku.yCUeiAvWuDgX.VO5OaAWGrhRnZbAcYFYW8z7nibC', 'prodi', '2020-12-30 04:15:11', NULL);
+('A301220TVF', 'A2.1700135', '$2y$12$iH7ujFhymRuB5TMEjminmukwI1FmCBq37QlM8M8jxpheVNUc8MVkm', 'mahasiswa', '2020-12-30 09:37:14', NULL),
+('A301220VzR', '0430048901', '$2y$12$iH7ujFhymRuB5TMEjminmukwI1FmCBq37QlM8M8jxpheVNUc8MVkm', 'prodi', '2020-12-30 04:15:11', NULL);
 
 -- --------------------------------------------------------
 
