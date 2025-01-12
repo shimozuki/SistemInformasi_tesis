@@ -33,14 +33,14 @@
           </p>
         </a>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="{{url('/guidance')}}" class="nav-link">
           <i class="nav-icon fas fa-chalkboard-teacher"></i>
           <p>
             Bimbingan
           </p>
         </a>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a href="{{url('/view_schedule')}}" class="nav-link">
           <i class="nav-icon fas fa-calendar-alt"></i>
