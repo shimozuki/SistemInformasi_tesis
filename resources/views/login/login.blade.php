@@ -79,17 +79,6 @@
         </div>
       </div>
     </div>
-    <div class=" card">
-      <div class="card-body login-card-body">
-        <p class="login-box-msg">Lupa Password?</p>
-        <div class="alert alert-danger" style="margin-bottom: 10px; display:none;" id="msg-container">
-          <span class="text text-white" id="msg"></span>
-        </div>
-        <div>
-          <p>Silahkan kirim username anda melalui E-Mail:info@stmik-sumedang.ac.id dengan subjek Lupa Password</p>
-        </div>
-      </div>
-    </div>
     <!-- /.login-card-body -->
   </div>
   <!-- /.login-box -->
