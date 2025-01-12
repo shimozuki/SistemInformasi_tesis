@@ -46,3 +46,4 @@
           ]);  
       }  
   }  
+//php artisan db:seed --class=AuthsTableSeeder  
