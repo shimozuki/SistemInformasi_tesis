@@ -61,7 +61,7 @@
         <a href="{{url('/pascasidang')}}" class="nav-link">
           <i class="nav-icon fas fa-file-upload"></i>
           <p>
-            Pengumpulan Skripsi
+            Pengumpulan Berkas
           </p>
         </a>
       </li>
