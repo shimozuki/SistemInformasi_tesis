@@ -65,10 +65,10 @@
                               <th>No</th>
                               <th>Nim</th>
                               <th>Nama</th>
-                              <th>Topik Skripsi</th>
+                              <th>Topik Tesis</th>
                               <th>File KRS</th>
                               <th>File KHS</th>
-                              <th>File Skripsi</th>
+                              <th>File Tesis</th>
                               <th>Tanggal</th>
                               <th>Aksi</th>
                             </tr>
@@ -80,10 +80,10 @@
                               <th>No</th>
                               <th>Nim</th>
                               <th>Nama</th>
-                              <th>Topik Skripsi</th>
+                              <th>Topik Tesis</th>
                               <th>File KRS</th>
                               <th>File KHS</th>
-                              <th>File Proposal</th>
+                              <th>File Tesis</th>
                               <th>Tanggal</th>
                               <th>Aksi</th>
                             </tr>

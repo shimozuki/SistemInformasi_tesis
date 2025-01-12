@@ -17,7 +17,7 @@
                 <input type="file" name="file_foto" class="form-control" accept="image/*" id="file_foto" required>
             </div>
             <div class="form-group">
-                <label for="" class="control-label">File Skripsi</label>
+                <label for="" class="control-label">File Tesis</label>
                 <input type="file" name="file_skripsi" class="form-control" id="file_skripsi"
                     accept="application/pdf, application/msword" required>
             </div>

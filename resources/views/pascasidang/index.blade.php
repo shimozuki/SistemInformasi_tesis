@@ -56,7 +56,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>File Skripsi</th>
+                                    <th>File Tesis</th>
                                     <th>Tanggal</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -66,7 +66,7 @@
                             <tfoot>
                                 <tr>
                                     <th>No</th>
-                                    <th>File Skripsi</th>
+                                    <th>File Tesis</th>
                                     <th>Tanggal</th>
                                     <th>Aksi</th>
                                 </tr>

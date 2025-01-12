@@ -34,7 +34,7 @@
             'placeholder' => 'Pilih Jurusan']) !!}
         </div>
         <div class="form-group">
-            <label for="" class="control-label">Tahun Skripsi</label>
+            <label for="" class="control-label">Tahun Tesis</label>
             {!! Form::text('tahun', null, ['class' => 'form-control', 'id' => 'tahun']) !!}
         </div>
         <div class="form-group">

@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="" class="control-label">Topik Skripsi</label>
+                <label for="" class="control-label">Topik Tesis</label>
                 <input type="text" name="topik_skripsi" class="form-control" id="topik_skripsi"
                     value=" {{ isset($data) ? $data->topik_skripsi : '' }}">
             </div>

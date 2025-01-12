@@ -54,7 +54,7 @@
                                     <th>No</th>
                                     <th>File Ijasah</th>
                                     <th>File Sertifikat UKM</th>
-                                    <th>File Skripsi</th>
+                                    <th>File Tesis</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
@@ -67,7 +67,7 @@
                                     <th>No</th>
                                     <th>File Ijasah</th>
                                     <th>File Sertifikat UKM</th>
-                                    <th>File Skripsi</th>
+                                    <th>File Tesis</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
@@ -105,7 +105,7 @@
         {data: 'DT_RowIndex', name:'id_ps'},
         {data: 'ijasah', name:'ijasah'},
         {data: 'sertifikat', name:'sertifikat'},
-        {data: 'skripsi', name:'skripsi'},
+        {data: 'skripsi', name:'tesis'},
         {data: 'tanggal', name:'tanggal'},
         {data: 'status', name:'status'},
         {data: 'action', name: 'action'}

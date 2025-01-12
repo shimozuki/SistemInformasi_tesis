@@ -54,7 +54,7 @@
                                                             <th>No</th>
                                                             <th>NIM</th>
                                                             <th>Nama</th>
-                                                            <th>File Skripsi</th>
+                                                            <th>File Tesis</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -64,7 +64,7 @@
                                                             <th>No</th>
                                                             <th>NIM</th>
                                                             <th>Nama</th>
-                                                            <th>File Skripsi</th>
+                                                            <th>File Tesis</th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
@@ -90,7 +90,7 @@
                                                             <th>No</th>
                                                             <th>NIM</th>
                                                             <th>Nama</th>
-                                                            <th>File Skripsi</th>
+                                                            <th>File Tesis</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -100,7 +100,7 @@
                                                             <th>No</th>
                                                             <th>NIM</th>
                                                             <th>Nama</th>
-                                                            <th>File Skripsi</th>
+                                                            <th>File Tesis</th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
@@ -126,7 +126,7 @@
                                                             <th>No</th>
                                                             <th>NIM</th>
                                                             <th>Nama</th>
-                                                            <th>File Skripsi</th>
+                                                            <th>File Tesis</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -136,7 +136,7 @@
                                                             <th>No</th>
                                                             <th>NIM</th>
                                                             <th>Nama</th>
-                                                            <th>File Skripsi</th>
+                                                            <th>File Tesis</th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>

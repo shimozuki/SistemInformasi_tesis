@@ -7,10 +7,10 @@
                 <table id="example1" class="table table-bordered table-striped" style="width: 100%;">
                     <thead>
                         <tr>
-                            <th>Topik Skripsi</th>
+                            <th>Topik Tesis</th>
                             <th>File KRS</th>
                             <th>File KHS</th>
-                            <th>File Skripsi</th>
+                            <th>File Tesis</th>
                             <th>Tanggal</th>
                             <th>Status</th>
                         </tr>
@@ -37,7 +37,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Topik Skripsi</th>
+                            <th>Topik Tesis</th>
                             <th>File KRS</th>
                             <th>File KHS</th>
                             <th>File Proposal</th>

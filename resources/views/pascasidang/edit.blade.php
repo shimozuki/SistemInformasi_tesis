@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="" class="control-label">File Skripsi</label>
+                <label for="" class="control-label">File Tesis</label>
                 <input type="file" name="file_skripsi" class="form-control" id="file_skripsi">
                 <input type="hidden" name="old_file_skripsi" value="{{ $data->file_skripsi }}">
             </div>

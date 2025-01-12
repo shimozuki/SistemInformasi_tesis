@@ -80,7 +80,7 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Topik Skripsi</th>
+                  <th>Topik Tesis</th>
                   <th>File Krs</th>
                   <th>File Khs</th>
                   <th>File Proposal</th>
@@ -94,7 +94,7 @@
               <tfoot>
                 <tr>
                   <th>No</th>
-                  <th>Topik Skripsi</th>
+                  <th>Topik Tesis</th>
                   <th>File Krs</th>
                   <th>File Khs</th>
                   <th>File Proposal</th>
