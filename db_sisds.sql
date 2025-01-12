@@ -54,7 +54,7 @@ INSERT INTO `auths` (`id_auth`, `username`, `password`, `hak_akses`, `created_at
 ('A301220OLP', 'A3.1700033', '$2y$10$Hq4/lwi2qCnFNKBgrxKjBuwSR9wVeibeYr/u6bHRkALo9pPF2sU5m', 'mahasiswa', '2020-12-30 04:06:20', NULL),
 ('A301220Trd', '0428058704', '$2y$10$GOgoqZ1UFJLyy9ZwcsXvvO8kHQEEST4Oc/w9Zf9rrzI8bk.Jbxo/K', 'prodi', '2020-12-30 04:16:26', NULL),
 ('A301220TVF', 'A2.1700135', '$2y$12$iH7ujFhymRuB5TMEjminmukwI1FmCBq37QlM8M8jxpheVNUc8MVkm', 'mahasiswa', '2020-12-30 09:37:14', NULL),
-('A301220VzR', '0430048901', '$2y$12$iH7ujFhymRuB5TMEjminmukwI1FmCBq37QlM8M8jxpheVNUc8MVkm', 'prodi', '2020-12-30 04:15:11', NULL);
+('A301220VzR', '0430048901', '$2y$10$7ErFSYk8GJk7./bNy0y1XeREptsGy51KY.dlJeAgsPtNodX1Y3EnK', 'prodi', '2020-12-30 04:15:11', NULL);
 
 -- --------------------------------------------------------
 
