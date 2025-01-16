@@ -10,7 +10,7 @@
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link bg-warning">
         <img src="{{asset('dist/img/logo.png')}}" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">SISDS</span>
+        <span class="brand-text font-weight-light">SIDATA</span>
       </a>
       @include('part/sidebar')
     </aside>
