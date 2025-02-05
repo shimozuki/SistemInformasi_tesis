@@ -29,7 +29,7 @@
         <a href="{{url('/submission_proposal')}}" class="nav-link">
           <i class="nav-icon fas fa-hand-holding"></i>
           <p>
-            Pengajuan
+            Pengajuan Topik
           </p>
         </a>
       </li>
