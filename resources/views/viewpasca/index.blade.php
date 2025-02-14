@@ -29,13 +29,8 @@
                 <div class="card">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a class="nav-link active" href="#ti" data-toggle="tab">Teknik
-                                    Informatika</a>
+                            <li class="nav-item"><a class="nav-link active" href="#ti" data-toggle="tab">Manajemen Inovasi</a>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="#si" data-toggle="tab">Sistem Informasi</a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="#mi" data-toggle="tab">Manajemen
-                                    Informatika</a></li>
                         </ul>
                     </div><!-- /.card-header -->
                     <div class="card-body">
@@ -166,7 +161,7 @@
 <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('plugins/select2/js/select2.full.min.js')}}"></script>
 <script>
-    $(function () {
+    $(function() {
         $('#example1').DataTable({
             responsive: true,
             processing: true,
@@ -206,10 +201,9 @@
 
         });
     });
-
 </script>
 <script>
-    $(function () {
+    $(function() {
         $('#example2').DataTable({
             responsive: true,
             processing: true,
@@ -249,10 +243,9 @@
 
         });
     });
-
 </script>
 <script>
-    $(function () {
+    $(function() {
         $('#example3').DataTable({
             responsive: true,
             processing: true,
@@ -292,6 +285,5 @@
 
         });
     });
-
 </script>
 @endpush
