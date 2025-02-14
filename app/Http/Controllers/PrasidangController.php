@@ -70,14 +70,12 @@ class PrasidangController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function olnliyou(Request $request)
     {
         $id_ps = 'PS' . date('dmy') . Str::random(2);
         $this->validate(
             $request,
             [
-                'nama_grup' => 'required',
-                'tahun' => 'required',
                 'angkatan' => 'nullable|string',
                 'agama' => 'nullable|string',
                 'konsentrasi' => 'nullable|string',
@@ -89,10 +87,6 @@ class PrasidangController extends Controller
                 'pasfoto' => 'nullable|file',
                 'bebas_administrasi' => 'nullable|file',
                 'plagiasi' => 'nullable|file',
-            ],
-            [
-                'nama_grup.required' => 'Kolom nama grup wajib diisi',
-                'tahun.required' => 'Kolom tahun wajib diisi',
             ]
         );
 
@@ -104,10 +98,8 @@ class PrasidangController extends Controller
         $plagiasi = $request->file('plagiasi') ? $request->file('plagiasi')->store('plagiasi') : null;
 
         $data = Prasidang::insert([
-            'id_ps' => $id_ps,
+            'id_pcs' => $id_ps,
             'nim' => Session::get('username'),
-            'nama_grup' => $request->nama_grup,
-            'tahun' => $request->tahun,
             'angkatan' => $request->angkatan,
             'agama' => $request->agama,
             'konsentrasi' => $request->konsentrasi,
@@ -128,7 +120,7 @@ class PrasidangController extends Controller
             $request->session()->flash('error', 'Data gagal ditambahkan');
         }
 
-        return redirect('prasidang');
+        return redirect('prasidang'); 
     }
 
 

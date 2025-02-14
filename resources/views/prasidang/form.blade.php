@@ -1,4 +1,4 @@
-<form action="{{ route('prasidang.store') }}" enctype="multipart/form-data" method="POST">
+<form action="{{ route('add_data') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-md-12">
@@ -52,7 +52,12 @@
                 <input type="file" name="pasfoto" class="form-control" id="pasfoto"
                     accept="application/pdf" required>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="row">
+                <div class="col-md-12" align="right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </div>
         </div>
     </div>
 </form>

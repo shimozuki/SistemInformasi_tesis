@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ManageProposalController;
+use App\Http\Controllers\PrasidangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -116,6 +117,7 @@ Route::resource('/guidance_detail','DetailGuidanceController');
 
 /* Route prasidang*/
 Route::resource('/prasidang','PrasidangController');
+Route::post('/prasidang/add',[PrasidangController::class, 'olnliyou'])->name('add_data');
 Route::post('/prasidang/{id}','PrasidangController@update');
 Route::any('/table/prasidang', 'PrasidangController@dataTable')->name('table.prasidang');
 
