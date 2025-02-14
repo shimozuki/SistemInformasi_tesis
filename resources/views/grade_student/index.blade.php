@@ -28,7 +28,7 @@
             <!-- /.card -->
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('grade')}}" class="btn btn-primary">Manajemen Inovasi</a>
+                    <a href="{{ route('grade')}}" class="btn btn-primary">Megister Manajemen Inovasi</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive">
