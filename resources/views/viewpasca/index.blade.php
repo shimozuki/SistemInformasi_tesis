@@ -29,7 +29,7 @@
                 <div class="card">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a class="nav-link active" href="#ti" data-toggle="tab">Manajemen Inovasi</a>
+                            <li class="nav-item"><a class="nav-link active" href="#ti" data-toggle="tab">Megister Manajemen Inovasi</a>
                             </li>
                         </ul>
                     </div><!-- /.card-header -->
