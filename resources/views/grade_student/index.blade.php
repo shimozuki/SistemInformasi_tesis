@@ -28,9 +28,7 @@
             <!-- /.card -->
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('grade')}}" class="btn btn-primary">Teknik Informatika</a>
-                    <a href="{{ route('grade2')}}" class="btn btn-success">Sistem Informasi</a>
-                    <a href="{{ route('grade3')}}" class="btn btn-success">Manajemen Informatika</a>
+                    <a href="{{ route('grade')}}" class="btn btn-primary">Manajemen Inovasi</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive">
