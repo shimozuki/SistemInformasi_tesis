@@ -4,17 +4,17 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="" class="control-label">Topik Tesis 1</label>
-                <input type="text" name="topik_skripsi" class="form-control" id="topik_skripsi"
+                <input type="text" name="topik_tesis1" class="form-control" id="topik_skripsi"
                     value=" {{ isset($data) ? $data->topik_skripsi : '' }}">
             </div>
             <div class="form-group">
                 <label for="" class="control-label">Topik Tesis 2</label>
-                <input type="text" name="topik_skripsi" class="form-control" id="topik_skripsi"
+                <input type="text" name="topik_tesis2" class="form-control" id="topik_skripsi"
                     value=" {{ isset($data) ? $data->topik_skripsi : '' }}">
             </div>
             <div class="form-group">
                 <label for="" class="control-label">Topik Tesis 3</label>
-                <input type="text" name="topik_skripsi" class="form-control" id="topik_skripsi"
+                <input type="text" name="topik_tesis3" class="form-control" id="topik_skripsi"
                     value=" {{ isset($data) ? $data->topik_skripsi : '' }}">
             </div>
         </div>

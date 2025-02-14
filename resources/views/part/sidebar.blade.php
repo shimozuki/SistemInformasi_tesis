@@ -77,6 +77,22 @@
         </a>
       </li>
       <li class="nav-item">
+        <a href="{{url('/manage_group')}}" class="nav-link">
+          <i class="nav-icon fas fa-users"></i>
+          <p>
+            Kelola Dosen Pembimbing
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{url('/manage_schedule')}}" class="nav-link">
+          <i class="nav-icon fas fa-calendar-alt"></i>
+          <p>
+            Kelola Jadwal
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="{{url('/manage_grade')}}" class="nav-link">
           <i class="nav-icon far fa-file-alt"></i>
           <p>
@@ -108,22 +124,6 @@
           <i class="nav-icon fas fa-users-cog"></i>
           <p>
             Kelola Akun
-          </p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="{{url('/manage_group')}}" class="nav-link">
-          <i class="nav-icon fas fa-users"></i>
-          <p>
-            Kelola Kelompok
-          </p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="{{url('/manage_schedule')}}" class="nav-link">
-          <i class="nav-icon fas fa-calendar-alt"></i>
-          <p>
-            Kelola Jadwal
           </p>
         </a>
       </li>

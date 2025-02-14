@@ -51,6 +51,11 @@
             </ul>
           </div><!-- /.card-header -->
           <div class="card-body">
+            <p>
+              <span style="color: green;">●</span> <strong>Diterima</strong><br>
+              <span style="color: red;">●</span> <strong>Ditolak</strong><br>
+              <span style="color: black;">●</span> <strong>Sedang Proses</strong>
+            </p>
             <div class="tab-content">
               <div class="active tab-pane" id="data">
                 <div class="row">
@@ -65,10 +70,9 @@
                               <th>No</th>
                               <th>Nim</th>
                               <th>Nama</th>
-                              <th>Topik Tesis</th>
-                              <th>File KRS</th>
-                              <th>File KHS</th>
-                              <th>File Tesis</th>
+                              <th>Topik Tesis 1</th>
+                              <th>Topik Tesis 2</th>
+                              <th>Topik Tesis 3</th>
                               <th>Tanggal</th>
                               <th>Aksi</th>
                             </tr>
@@ -80,10 +84,9 @@
                               <th>No</th>
                               <th>Nim</th>
                               <th>Nama</th>
-                              <th>Topik Tesis</th>
-                              <th>File KRS</th>
-                              <th>File KHS</th>
-                              <th>File Tesis</th>
+                              <th>Topik Tesis 1</th>
+                              <th>Topik Tesis 2</th>
+                              <th>Topik Tesis 3</th>
                               <th>Tanggal</th>
                               <th>Aksi</th>
                             </tr>
@@ -148,61 +151,105 @@
 <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('plugins/select2/js/select2.full.min.js')}}"></script>
 <script>
-  $(function () {
+  $(function() {
     $('#example1').DataTable({
-      responsive : true,
-      processing : true,
-      serverSide : true,
-      order: [[1, 'asc']],
+      responsive: true,
+      processing: true,
+      serverSide: true,
+      order: [
+        [1, 'asc']
+      ],
       ajax: {
-            'url':"{{route('table.manage_proposal')}}",
-            'type': 'POST',
-            'headers': {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-            },
-      columns: [
-        {data: 'DT_RowIndex', name:'id_pp'},
-        {data: 'nim', name:'nim'},
-        {data: 'nama', name:'nama'},
-        {data: 'topik_skripsi', name:'topik_skripsi'},
-        {data: 'krs', name:'krs'},
-        {data: 'khs', name:'khs'},
-        {data: 'proposal', name:'proposal'},
-        {data: 'tanggal', name:'tanggal'},
-        {data: 'action', name: 'action'}
+        'url': "{{route('table.manage_proposal')}}",
+        'type': 'POST',
+        'headers': {
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+      },
+      columns: [{
+          data: 'DT_RowIndex',
+          name: 'id_pp'
+        },
+        {
+          data: 'nim',
+          name: 'nim'
+        },
+        {
+          data: 'nama',
+          name: 'nama'
+        },
+        {
+          data: 'topik_tesis1',
+          name: 'topik_tesis1',
+          render: function(data, type, row) {
+            return `<span class="${row.status_topik1 === 'terima' ? 'text-success' : 'text-danger'}">${data}</span>`;
+          }
+        },
+        {
+          data: 'topik_tesis2',
+          name: 'topik_tesis2',
+          render: function(data, type, row) {
+            return `<span class="${row.status_topik2 === 'terima' ? 'text-success' : 'text-danger'}">${data}</span>`;
+          }
+        },
+        {
+          data: 'topik_tesis3',
+          name: 'topik_tesis3',
+          render: function(data, type, row) {
+            return `<span class="${row.status_topik3 === 'terima' ? 'text-success' : 'text-danger'}">${data}</span>`;
+          }
+        },
+        {
+          data: 'created_at',
+          name: 'created_at'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        }
       ]
     });
   });
 </script>
 <script>
-  $(function () {
+  $(function() {
     $('#example2').DataTable({
-      responsive : true,
-      processing : true,
-      serverSide : true,
-      order: [[1, 'asc']],
-        ajax: {
-            'url':"{{route('table.riwayatpp')}}",
-            'type': 'POST',
-            'headers': {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-            },
-      columns: [
-        {data: 'DT_RowIndex', name:'nim'},
-        {data: 'nim', name:'nim'},
-        {data: 'nama', name:'nama'},
-        {data: 'action', name: 'action'}
+      responsive: true,
+      processing: true,
+      serverSide: true,
+      order: [
+        [1, 'asc']
       ],
-      columnDefs: [
-        {
-          "targets": [0, -1],
-          "orderable": false,
-          "searchable" : true
+      ajax: {
+        'url': "{{route('table.riwayatpp')}}",
+        'type': 'POST',
+        'headers': {
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
-      ]
-      
+      },
+      columns: [{
+          data: 'DT_RowIndex',
+          name: 'nim'
+        },
+        {
+          data: 'nim',
+          name: 'nim'
+        },
+        {
+          data: 'nama',
+          name: 'nama'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        }
+      ],
+      columnDefs: [{
+        "targets": [0, -1],
+        "orderable": false,
+        "searchable": true
+      }]
+
     });
   });
 </script>

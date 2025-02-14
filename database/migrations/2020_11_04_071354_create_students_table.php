@@ -17,7 +17,7 @@ class CreateStudentsTable extends Migration
             $table->string('nim',10)->primary();
             $table->string('id_auth',10);
             $table->string('id_kel',10);
-            $table->string('nama',30);
+            $table->string('name',30);
             $table->text('alamat');
             $table->string('no_hp',15);
             $table->string('email',30);

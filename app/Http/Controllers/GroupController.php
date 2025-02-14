@@ -16,12 +16,11 @@ class GroupController extends Controller
      */
     public function index()
     {
-        if(Session::get('login')){
+        if (Session::get('login')) {
             return view('group/index');
-        }else{
+        } else {
             return redirect('login');
         }
-        
     }
 
     /**
@@ -52,20 +51,19 @@ class GroupController extends Controller
             [
                 'nama_grup.required' => 'Kolom nama grup wajib diisi',
                 'tahun.required' => 'Kolom tahun wajib diisi'
-
             ]
         );
 
-        $data = Group::insert([
-            [
-                'nama_grup' => $request->nama_grup,
-                'tahun' => $request->tahun,
-                'created_at' => now()
-            ]
+        // Hapus 'id_grup' dari array insert
+        $data = Group::create([
+            'nama_grup' => $request->nama_grup,
+            'tahun' => $request->tahun,
+            'created_at' => now()
         ]);
 
-        return $data;
+        return response()->json($data);
     }
+
 
     /**
      * Display the specified resource.
@@ -133,16 +131,16 @@ class GroupController extends Controller
     {
         $data = Group::query();
         return DataTables::of($data)
-        ->addColumn('action', function($data){
-            return view('layout._action_group', [
-                'data' => $data,
-                'url_edit' => route('group.edit', $data->id_grup),
-                'url_destroy' => route('group.destroy', $data->id_grup),
-                'url_detail' =>route('group.detail', $data->id_grup)
-            ]);
-        })
-        ->addIndexColumn()
-        ->rawColumns(['action'])
-        ->make(true);
+            ->addColumn('action', function ($data) {
+                return view('layout._action_group', [
+                    'data' => $data,
+                    'url_edit' => route('group.edit', $data->id_grup),
+                    'url_destroy' => route('group.destroy', $data->id_grup),
+                    'url_detail' => route('group.detail', $data->id_grup)
+                ]);
+            })
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
     }
 }

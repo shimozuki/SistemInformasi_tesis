@@ -16,10 +16,10 @@ class CreateSubmissionsProposalTable extends Migration
         Schema::create('submissions_proposal', function (Blueprint $table) {
             $table->bigIncrements('id_pp');
             $table->string('nim',10);
-            $table->text('topik_skripsi');
-            $table->text('file_krs');
-            $table->text('file_khs');
-            $table->text('file_proposal');
+            $table->text('topik_tesis');
+            $table->text('file_babasplagiasi');
+            $table->text('file_bebas_administrasi');
+            $table->text('file_pasfoto');
             $table->enum('status',['proses','terima','tolak']);
             $table->timestamps();
         });

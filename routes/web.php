@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ManageProposalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -92,6 +93,8 @@ Route::any('/table/submission_proposal', 'SubmissionProposalController@dataTable
 
 /* Route Manage Proposal*/
 Route::resource('/manage_proposal','ManageProposalController');
+Route::get('/manage_proposal', [ManageProposalController::class, 'index'])->name('manage_proposal');
+Route::post('/manage_proposal/update/{id}', [ManageProposalController::class, 'updateStatus'])->name('updatestatus');
 Route::any('/table/manage_proposal', 'ManageProposalController@dataTable')->name('table.manage_proposal');
 Route::any('/table/riwayatpp', 'ManageProposalController@dataTable2')->name('table.riwayatpp');
 

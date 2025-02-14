@@ -3,29 +3,19 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="" class="control-label">Topik Tesis</label>
-                <input type="text" name="topik_skripsi" class="form-control" id="topik_skripsi"
-                    value="{{$data->topik_skripsi}}">
+                <label for="" class="control-label">Topik Tesis 1</label>
+                <input type="text" name="topik_tesis1" class="form-control" id="topik_skripsi"
+                    value=" {{ $data->topik_tesis1 }}">
             </div>
             <div class="form-group">
-                <label for="" class="control-label">File KRS</label>
-                <input type="file" class="form-control" id="file_krs" name="file_krs">
-                <input type="hidden" name="old_file_krs" value="{{ $data->file_krs }}">
+                <label for="" class="control-label">Topik Tesis 2</label>
+                <input type="text" name="topik_tesis2" class="form-control" id="topik_skripsi"
+                    value=" {{ $data->topik_tesis2 }}">
             </div>
             <div class="form-group">
-                <label for="" class="control-label">File KHS</label>
-                <input type="file" name="file_khs" class="form-control" id="file_khs">
-                <input type="hidden" name="old_file_khs" value="{{ $data->file_khs }}">
-            </div>
-            <div class="form-group">
-                <label for="" class="control-label">File Proposal</label>
-                <input type="file" name="file_proposal" class="form-control" id="file_proposal">
-                <input type="hidden" name="old_file_proposal" value="{{ $data->file_proposal }}">
-            </div>
-            <div class="form-group">
-                <label for="" class="control-label">Tanggal</label>
-                <input type="date" name="tanggal" class="form-control" id="tanggal"
-                    value="{{ isset($data) ? $data->tanggal : '' }}">
+                <label for="" class="control-label">Topik Tesis 3</label>
+                <input type="text" name="topik_tesis3" class="form-control" id="topik_skripsi"
+                    value="{{ $data->topik_tesis3 }}">
             </div>
         </div>
     </div>

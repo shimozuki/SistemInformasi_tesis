@@ -80,10 +80,9 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Topik Tesis</th>
-                  <th>File Krs</th>
-                  <th>File Khs</th>
-                  <th>File Proposal</th>
+                  <th>Topik Tesis 1</th>
+                  <th>Topik Tesis 2</th>
+                  <th>Topik Tesis 3</th>
                   <th>Tanggal Pengajuan</th>
                   <th>Status</th>
                   <th>Aksi</th>
@@ -94,10 +93,9 @@
               <tfoot>
                 <tr>
                   <th>No</th>
-                  <th>Topik Tesis</th>
-                  <th>File Krs</th>
-                  <th>File Khs</th>
-                  <th>File Proposal</th>
+                  <th>Topik Tesis 1</th>
+                  <th>Topik Tesis 2</th>
+                  <th>Topik Tesis 3</th>
                   <th>Tanggal Pengajuan</th>
                   <th>Status</th>
                   <th>Aksi</th>
@@ -118,18 +116,18 @@
 <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script>
-  $(document).ready(function(){
-    $('body').on('click', '.modalnofooter-show', function(e){
+  $(document).ready(function() {
+    $('body').on('click', '.modalnofooter-show', function(e) {
       e.preventDefault();
       var me = $(this),
-          url = me.attr('href'),
-          form = $('.modal-body form'),
-          title = me.attr('title');
+        url = me.attr('href'),
+        form = $('.modal-body form'),
+        title = me.attr('title');
       $.ajax({
-        url : url,
-        dataType : 'html',
-        success : function(response){
-            $('#modal-body-nofooter').html(response);
+        url: url,
+        dataType: 'html',
+        success: function(response) {
+          $('#modal-body-nofooter').html(response);
         }
       });
 
@@ -138,37 +136,65 @@
   });
 </script>
 <script>
-  $(function () {
+  $(function() {
     $('#example1').DataTable({
-      responsive : true,
-      processing : true,
-      serverSide : true,
-      order: [[1, 'asc']],
-        ajax: {
-            'url':"{{route('table.submission_proposal')}}",
-            'type': 'POST',
-            'headers': {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-            },
-      columns: [
-        {data: 'DT_RowIndex', name:'id_pp'},
-        {data: 'topik_skripsi', name:'topik_skripsi'},
-        {data: 'krs', name:'krs'},
-        {data: 'khs', name:'khs'},
-        {data: 'proposal', name:'proposal'},
-        {data: 'tanggal', name:'tanggal'},
-        {data: 'status', name:'status'},
-        {data: 'action', name: 'action'}
+      responsive: true,
+      processing: true,
+      serverSide: true,
+      order: [
+        [1, 'asc']
       ],
-      columnDefs: [
-        {
-          "targets": [0, -1],
-          "orderable": false,
-          "searchable" : false
+      ajax: {
+        'url': "{{route('table.submission_proposal')}}",
+        'type': 'POST',
+        'headers': {
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
-      ]
-      
+      },
+      columns: [{
+          data: 'DT_RowIndex',
+          name: 'id_pp'
+        },
+        {
+          data: 'topik_tesis1',
+          name: 'topik_tesis1',
+          render: function(data, type, row) {
+            return `<span class="${row.status_topik1 === 'terima' ? 'text-success' : 'text-danger'}">${data}</span>`;
+          }
+        },
+        {
+          data: 'topik_tesis2',
+          name: 'topik_tesis2',
+          render: function(data, type, row) {
+            return `<span class="${row.status_topik2 === 'terima' ? 'text-success' : 'text-danger'}">${data}</span>`;
+          }
+        },
+        {
+          data: 'topik_tesis3',
+          name: 'topik_tesis3',
+          render: function(data, type, row) {
+            return `<span class="${row.status_topik3 === 'terima' ? 'text-success' : 'text-danger'}">${data}</span>`;
+          }
+        },
+        {
+          data: 'created_at',
+          name: 'created_at'
+        },
+        {
+          data: 'status',
+          name: 'status'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        }
+      ],
+      columnDefs: [{
+        "targets": [0, -1],
+        "orderable": false,
+        "searchable": false
+      }]
+
     });
   });
 </script>
