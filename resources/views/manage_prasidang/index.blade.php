@@ -49,13 +49,12 @@
                     <!-- /.card-header -->
                     <div class="card-body table-responsive">
                         <table id="example1" class="table table-bordered table-striped">
-                            <thead>
+                            <<thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>File Ijasah</th>
-                                    <th>File Sertifikat UKM</th>
+                                    <th>Judul</th>
+                                    <th>File Kartu Bimbingan</th>
                                     <th>File Tesis</th>
-                                    <th>Tanggal</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -65,10 +64,9 @@
                             <tfoot>
                                 <tr>
                                     <th>No</th>
-                                    <th>File Ijasah</th>
-                                    <th>File Sertifikat UKM</th>
+                                    <th>Judul</th>
+                                    <th>File Kartu Bimbingan</th>
                                     <th>File Tesis</th>
-                                    <th>Tanggal</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -103,10 +101,9 @@
             },
       columns: [
         {data: 'DT_RowIndex', name:'id_ps'},
-        {data: 'ijasah', name:'ijasah'},
-        {data: 'sertifikat', name:'sertifikat'},
-        {data: 'skripsi', name:'tesis'},
-        {data: 'tanggal', name:'tanggal'},
+        {data: 'judul_tesis_bahasa_indonesia', name:'judul_tesis_bahasa_indonesia'},
+        {data: 'file_kartu_bimbingan', name:'file_kartu_bimbingan'},
+        {data: 'file_tesis', name:'file_tesis'},
         {data: 'status', name:'status'},
         {data: 'action', name: 'action'}
       ],
