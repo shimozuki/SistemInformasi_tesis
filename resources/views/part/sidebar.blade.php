@@ -35,11 +35,11 @@
       </li>
       {{-- <li class="nav-item">
         <a href="{{url('/guidance')}}" class="nav-link">
-          <i class="nav-icon fas fa-chalkboard-teacher"></i>
-          <p>
-            Bimbingan
-          </p>
-        </a>
+      <i class="nav-icon fas fa-chalkboard-teacher"></i>
+      <p>
+        Bimbingan
+      </p>
+      </a>
       </li> --}}
       <li class="nav-item">
         <a href="{{url('/view_schedule')}}" class="nav-link">
@@ -124,6 +124,14 @@
           <i class="nav-icon fas fa-users-cog"></i>
           <p>
             Kelola Akun
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{url('/manage_prasidang')}}" class="nav-link">
+          <i class="nav-icon fas fa-archive"></i>
+          <p>
+            Kelola Prasidang
           </p>
         </a>
       </li>

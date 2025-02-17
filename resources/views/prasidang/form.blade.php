@@ -20,12 +20,12 @@
                 <input type="text" name="konsentrasi" class="form-control" id="konsentrasi" required>
             </div>
             <div class="form-group">
-                <label for="judul_tesis_en" class="control-label">Judul Tesis (Bahasa Inggris)</label>
-                <input type="text" name="judul_tesis_en" class="form-control" id="judul_tesis_en" required>
+                <label for="judul_tesis_bahasa_inggris" class="control-label">Judul Tesis (Bahasa Inggris)</label>
+                <input type="text" name="judul_tesis_bahasa_inggris" class="form-control" id="judul_tesis_bahasa_inggris" required>
             </div>
             <div class="form-group">
-                <label for="judul_tesis_id" class="control-label">Judul Tesis (Bahasa Indonesia)</label>
-                <input type="text" name="judul_tesis_id" class="form-control" id="judul_tesis_id" required>
+                <label for="judul_tesis_bahasa_indonesia" class="control-label">Judul Tesis (Bahasa Indonesia)</label>
+                <input type="text" name="judul_tesis_bahasa_indonesia" class="form-control" id="judul_tesis_bahasa_indonesia" required>
             </div>
             <div class="form-group">
                 <label for="file_kartu_bimbingan" class="control-label">Upload Kartu Bimbingan</label>
@@ -43,12 +43,12 @@
                     accept="application/pdf" required>
             </div>
             <div class="form-group">
-                <label for="plagiasi" class="control-label">Upload surat keterangan bebas administrasi</label>
+                <label for="plagiasi" class="control-label">Upload surat Bebas Plagiasi</label>
                 <input type="file" name="plagiasi" class="form-control" id="plagiasi"
                     accept="application/pdf" required>
             </div>
             <div class="form-group">
-                <label for="pasfoto" class="control-label">Upload surat keterangan bebas administrasi</label>
+                <label for="pasfoto" class="control-label">Foto Ukuran 4x6 (latrar biru)</label>
                 <input type="file" name="pasfoto" class="form-control" id="pasfoto"
                     accept="application/pdf" required>
             </div>

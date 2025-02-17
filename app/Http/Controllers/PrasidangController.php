@@ -28,6 +28,8 @@ class PrasidangController extends Controller
                     ->select('students.*', 'auths.*')
                     ->where('auths.id_auth', Session::get('id_auth'))
                     ->first();
+
+                $tesis = Prasidang::where('nim', Session::get('username'))->get();
             } else if (Session::get('hak_akses') == 'dosen') {
                 $data = DB::table('lecturers')
                     ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
@@ -46,9 +48,16 @@ class PrasidangController extends Controller
                     ->select('departments.*', 'auths.*')
                     ->where('auths.id_auth', Session::get('id_auth'))
                     ->first();
+            }else if (Session::get('hak_akses') == 'lppm') {
+                $data = DB::table('departments')
+                    ->join('auths', 'departments.id_auth', '=', 'auths.id_auth')
+                    ->select('departments.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+                $tesis = Prasidang::all();
             }
 
-            return view('prasidang/index', compact('data'));
+            return view('prasidang/index', compact('data', 'tesis'));
         } else {
             return redirect('login');
         }

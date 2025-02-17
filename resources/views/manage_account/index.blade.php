@@ -32,7 +32,7 @@
               <li class="nav-item"><a class="nav-link active" href="#mahasiswa" data-toggle="tab">Mahasiswa</a></li>
               <li class="nav-item"><a class="nav-link" href="#dosen" data-toggle="tab">Dosen</a></li>
               <li class="nav-item"><a class="nav-link" href="#prodi" data-toggle="tab">Prodi</a></li>
-              <li class="nav-item"><a class="nav-link" href="#lppm" data-toggle="tab">LPPM</a></li>
+              <li class="nav-item"><a class="nav-link" href="#lppm" data-toggle="tab">Admin</a></li>
             </ul>
           </div><!-- /.card-header -->
           <div class="card-body">
