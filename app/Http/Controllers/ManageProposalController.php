@@ -123,12 +123,15 @@ class ManageProposalController extends Controller
         if ($request->topik_tesis == 'topik_tesis1') {
             $submission->status_topik2 = 'tolak';
             $submission->status_topik3 = 'tolak';
+            $submission->status = 'terima';
         } elseif ($request->topik_tesis == 'topik_tesis2') {
             $submission->status_topik1 = 'tolak';
             $submission->status_topik3 = 'tolak';
+            $submission->status = 'terima';
         } elseif ($request->topik_tesis == 'topik_tesis3') {
             $submission->status_topik1 = 'tolak';
             $submission->status_topik2 = 'tolak';
+            $submission->status = 'terima';
         }
 
         $submission->save();
