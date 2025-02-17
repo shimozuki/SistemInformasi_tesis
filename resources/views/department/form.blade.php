@@ -13,8 +13,8 @@
             {!! Form::text('nama', null, ['class' => 'form-control', 'id' => 'nama']) !!}
         </div>
         <div class="form-group">
-            <label for="" class="control-label">Jurusan</label>
-            {!! Form::select('jurusan', ['Teknik Informatika' => 'Teknik Informatika', 'Sistem Informasi' => 'Sistem Informasi', 'Manajemen Informatika' => 'Manajemen Informatika'], null, ['class' => 'form-control', 'placeholder' => 'Pilih Jurusan']) !!}
+            <label for="jurusan" class="control-label">Jurusan</label>
+            {!! Form::text('jurusan', 'Magister manajemen inovasi', ['class' => 'form-control', 'readonly' => 'readonly']) !!}
         </div>
         <div class="form-group">
             <label for="" class="control-label">No Hp</label>

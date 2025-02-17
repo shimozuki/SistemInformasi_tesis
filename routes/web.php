@@ -118,6 +118,7 @@ Route::resource('/guidance_detail','DetailGuidanceController');
 /* Route prasidang*/
 Route::resource('/prasidang','PrasidangController');
 Route::post('/prasidang/add',[PrasidangController::class, 'olnliyou'])->name('add_data');
+Route::post('/prasidang/edit',[PrasidangController::class, 'edit'])->name('edit_data');
 Route::post('/prasidang/{id}','PrasidangController@update');
 Route::any('/table/prasidang', 'PrasidangController@dataTable')->name('table.prasidang');
 

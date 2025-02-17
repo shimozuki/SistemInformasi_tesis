@@ -59,6 +59,9 @@
                                     <th>Judul</th>
                                     <th>File Kartu Bimbingan</th>
                                     <th>File Tesis</th>
+                                    <th>File Bebas plagiasi</th>
+                                    <th>File Bebas administrasi</th>
+                                    <th>pasfoto</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -71,6 +74,9 @@
                                     <th>Judul</th>
                                     <th>File Kartu Bimbingan</th>
                                     <th>File Tesis</th>
+                                    <th>File Bebas plagiasi</th>
+                                    <th>File Bebas administrasi</th>
+                                    <th>pasfoto</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -90,56 +96,85 @@
 <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script>
-    $(document).ready(function(){
-    $('body').on('click', '.modalnofooter-show', function(e){
-      e.preventDefault();
-      var me = $(this),
-          url = me.attr('href'),
-          form = $('.modal-body form'),
-          title = me.attr('title');
-      $.ajax({
-        url : url,
-        dataType : 'html',
-        success : function(response){
-            $('#modal-body-nofooter').html(response);
-        }
-      });
+    $(document).ready(function() {
+        $('body').on('click', '.modalnofooter-show', function(e) {
+            e.preventDefault();
+            var me = $(this),
+                url = me.attr('href'),
+                form = $('.modal-body form'),
+                title = me.attr('title');
+            $.ajax({
+                url: url,
+                dataType: 'html',
+                success: function(response) {
+                    $('#modal-body-nofooter').html(response);
+                }
+            });
 
-      $('#modal-nofooter').modal('show');
+            $('#modal-nofooter').modal('show');
+        });
     });
-  });
 </script>
 <script>
-    $(function () {
-    $('#example1').DataTable({
-      responsive : true,
-      processing : true,
-      serverSide : true,
-      order: [[2, 'asc']],
-        ajax: {
-            'url':"{{route('table.prasidang')}}",
-            'type': 'POST',
-            'headers': {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
+    $(function() {
+        $('#example1').DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            order: [
+                [2, 'asc']
+            ],
+            ajax: {
+                'url': "{{route('table.prasidang')}}",
+                'type': 'POST',
+                'headers': {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
             },
-      columns: [
-        {data: 'DT_RowIndex', name:'id_ps'},
-        {data: 'judul_tesis_bahasa_indonesia', name:'judul_tesis_bahasa_indonesia'},
-        {data: 'file_kartu_bimbingan', name:'file_kartu_bimbingan'},
-        {data: 'file_tesis', name:'file_tesis'},
-        {data: 'status', name:'status'},
-        {data: 'action', name: 'action'}
-      ],
-      columnDefs: [
-        {
-          "targets": [0, -1],
-          "orderable": false,
-          "searchable" : false
-        }
-      ]
-      
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'id_ps'
+                },
+                {
+                    data: 'judul_tesis_bahasa_indonesia',
+                    name: 'judul_tesis_bahasa_indonesia'
+                },
+                {
+                    data: 'file_kartu_bimbingan',
+                    name: 'file_kartu_bimbingan'
+                },
+                {
+                    data: 'file_tesis',
+                    name: 'file_tesis'
+                },
+                {
+                    data: 'plagiasi',
+                    name: 'plagiasi'
+                },
+                {
+                    data: 'bebas_administrasi',
+                    name: 'bebas_administrasi'
+                },
+                {
+                    data: 'pasfoto',
+                    name: 'pasfoto'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+            ],
+            columnDefs: [{
+                "targets": [0, -1],
+                "orderable": false,
+                "searchable": false
+            }]
+
+        });
     });
-  });
 </script>
 @endpush

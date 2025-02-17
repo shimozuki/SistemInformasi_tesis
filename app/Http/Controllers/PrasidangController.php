@@ -28,8 +28,6 @@ class PrasidangController extends Controller
                     ->select('students.*', 'auths.*')
                     ->where('auths.id_auth', Session::get('id_auth'))
                     ->first();
-
-                $tesis = Prasidang::where('nim', Session::get('username'))->get();
             } else if (Session::get('hak_akses') == 'dosen') {
                 $data = DB::table('lecturers')
                     ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
@@ -48,16 +46,15 @@ class PrasidangController extends Controller
                     ->select('departments.*', 'auths.*')
                     ->where('auths.id_auth', Session::get('id_auth'))
                     ->first();
-            }else if (Session::get('hak_akses') == 'lppm') {
+            } else if (Session::get('hak_akses') == 'lppm') {
                 $data = DB::table('departments')
                     ->join('auths', 'departments.id_auth', '=', 'auths.id_auth')
                     ->select('departments.*', 'auths.*')
                     ->where('auths.id_auth', Session::get('id_auth'))
                     ->first();
-                $tesis = Prasidang::all();
             }
 
-            return view('prasidang/index', compact('data', 'tesis'));
+            return view('prasidang/index', compact('data'));
         } else {
             return redirect('login');
         }
@@ -129,7 +126,7 @@ class PrasidangController extends Controller
             $request->session()->flash('error', 'Data gagal ditambahkan');
         }
 
-        return redirect('prasidang'); 
+        return redirect('prasidang');
     }
 
 
@@ -264,27 +261,51 @@ class PrasidangController extends Controller
     {
         $data = Prasidang::where('nim', Session::get('username'))->get();
         return DataTables::of($data)
-            ->addColumn('ijasah', function ($data) {
-                $path = 'upload/prasidang/ijasah/' . $data->file_ijasah;
+            ->addColumn('file_tesis', function ($data) {
+                $path = 'tesis/' . $data->file_tesis;
                 return view('prasidang.link_download', [
                     'data' => $data,
-                    'title' => $data->file_ijasah,
+                    'title' => $data->file_tesis,
                     'url_download' => $path
                 ]);
             })
-            ->addColumn('sertifikat', function ($data) {
-                $path = 'upload/prasidang/sertifikat_ukm/' . $data->file_sertifikat_ukm;
+            ->addColumn('file_kartu_bimbingan', function ($data) {
+                $path = 'kartu_bimbingan/' . $data->file_kartu_bimbingan;
                 return view('prasidang.link_download', [
                     'data' => $data,
-                    'title' => $data->file_sertifikat_ukm,
+                    'title' => $data->file_kartu_bimbingan,
                     'url_download' => $path
                 ]);
             })
-            ->addColumn('skripsi', function ($data) {
-                $path = 'upload/prasidang/skripsi/' . $data->file_skripsi;
+            ->addColumn('file_halaman', function ($data) {
+                $path = 'halaman/' . $data->file_halaman;
                 return view('prasidang.link_download', [
                     'data' => $data,
-                    'title' => $data->file_skripsi,
+                    'title' => $data->file_halaman,
+                    'url_download' => $path
+                ]);
+            })
+            ->addColumn('pasfoto', function ($data) {
+                $path = 'pasfoto/' . $data->pasfoto;
+                return view('prasidang.link_download', [
+                    'data' => $data,
+                    'title' => $data->pasfoto,
+                    'url_download' => $path
+                ]);
+            })
+            ->addColumn('bebas_administrasi', function ($data) {
+                $path = 'bebas_administrasi/' . $data->bebas_administrasi;
+                return view('prasidang.link_download', [
+                    'data' => $data,
+                    'title' => $data->bebas_administrasi,
+                    'url_download' => $path
+                ]);
+            })
+            ->addColumn('plagiasi', function ($data) {
+                $path = 'plagiasi/' . $data->plagiasi;
+                return view('prasidang.link_download', [
+                    'data' => $data,
+                    'title' => $data->plagiasi,
                     'url_download' => $path
                 ]);
             })
@@ -296,11 +317,11 @@ class PrasidangController extends Controller
             ->addColumn('action', function ($data) {
                 return view('layout._action_ps', [
                     'data' => $data,
-                    'url_edit' => route('prasidang.edit', $data->id_ps)
+                    'url_edit' => route('edit_data', $data->id_ps)
                 ]);
             })
             ->addIndexColumn()
-            ->rawColumns(['ijasah', 'sertifikat', 'skripsi', 'status', 'action'])
+            ->rawColumns(['file_tesis', 'file_kartu_bimbingan', 'file_halaman', 'pasfoto', 'bebas_administrasi', 'judul_tesis_bahasa_indonesia', 'plagiasi', 'status', 'action'])
             ->make(true);
     }
 }

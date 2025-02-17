@@ -22,7 +22,7 @@ class CreateStudentsTable extends Migration
             $table->string('no_hp',15);
             $table->string('email',30);
             $table->enum('jk',['Laki-laki','Perempuan']);
-            $table->enum('jurusan',['Teknik Informatika','Sistem Informasi','Manajemen Informatika']);
+            $table->string('jurusan');
             $table->string('tahun',4);
             $table->timestamps();
         });
