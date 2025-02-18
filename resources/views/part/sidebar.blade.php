@@ -61,7 +61,7 @@
         <a href="{{url('/pascasidang')}}" class="nav-link">
           <i class="nav-icon fas fa-file-upload"></i>
           <p>
-            Pengumpulan Berkas
+            Pascasidang
           </p>
         </a>
       </li>
@@ -147,7 +147,7 @@
         <a href="{{url('/viewpasca')}}" class="nav-link">
           <i class="nav-icon fas fa-hand-holding"></i>
           <p>
-            Pengumpulan Berkas
+            pascasidang
           </p>
         </a>
       </li>
