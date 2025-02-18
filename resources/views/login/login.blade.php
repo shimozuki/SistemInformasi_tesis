@@ -57,7 +57,7 @@
             <select name="role" id="hak_akses" class="form-control">
               <option value="mahasiswa">mahasiswa</option>
               <option value="dosen">dosen</option>
-              <option value="lppm">lppm</option>
+              <option value="lppm">Admin</option>
               <option value="prodi">prodi</option>
             </select>
           </div>

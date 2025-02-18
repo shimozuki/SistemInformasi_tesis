@@ -53,6 +53,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Judul</th>
+                                    <th>Nama</th>
+                                    <th>Nim</th>
                                     <th>File Kartu Bimbingan</th>
                                     <th>File Tesis</th>
                                     <th>Status</th>
@@ -65,6 +67,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Judul</th>
+                                    <th>Nama</th>
+                                    <th>Nim</th>
                                     <th>File Kartu Bimbingan</th>
                                     <th>File Tesis</th>
                                     <th>Status</th>
@@ -100,7 +104,9 @@
             }
             },
       columns: [
-        {data: 'DT_RowIndex', name:'id_ps'},
+        {data: 'DT_RowIndex', name:'id_pcs'},
+        {data: 'nama', name:'nama'},
+        {data: 'nim', name:'nim'},
         {data: 'judul_tesis_bahasa_indonesia', name:'judul_tesis_bahasa_indonesia'},
         {data: 'file_kartu_bimbingan', name:'file_kartu_bimbingan'},
         {data: 'file_tesis', name:'file_tesis'},

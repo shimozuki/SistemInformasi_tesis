@@ -118,7 +118,7 @@
       </li>
       }
       @elseif(Session::get('hak_akses') == 'lppm'){
-      <li class="nav-header">LPPM</li>
+      <li class="nav-header">ADMIN</li>
       <li class="nav-item">
         <a href="{{url('/manage_account')}}" class="nav-link">
           <i class="nav-icon fas fa-users-cog"></i>
