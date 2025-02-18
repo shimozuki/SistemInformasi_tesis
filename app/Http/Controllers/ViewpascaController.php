@@ -122,7 +122,6 @@ class ViewpascaController extends Controller
          $data = DB::table('pascasidang')
         ->join('students','pascasidang.nim','=','students.nim')
         ->select('students.*','pascasidang.*')
-        ->where('students.jurusan', '=', 'Teknik Informatika')
          ->get();
         return DataTables::of($data)
         ->addColumn('skripsi', function($data){
@@ -142,7 +141,6 @@ class ViewpascaController extends Controller
          $data = DB::table('pascasidang')
         ->join('students','pascasidang.nim','=','students.nim')
         ->select('students.*','pascasidang.*')
-        ->where('students.jurusan', '=', 'Sistem Informasi')
          ->get();
         return DataTables::of($data)
         ->addColumn('skripsi', function($data){
@@ -162,7 +160,6 @@ class ViewpascaController extends Controller
          $data = DB::table('pascasidang')
         ->join('students','pascasidang.nim','=','students.nim')
         ->select('students.*','pascasidang.*')
-        ->where('students.jurusan', '=', 'Manajemen Informatika')
          ->get();
         return DataTables::of($data)
         ->addColumn('skripsi', function($data){
