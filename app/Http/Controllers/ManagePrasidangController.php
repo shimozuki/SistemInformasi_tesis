@@ -149,7 +149,6 @@ class ManagePrasidangController extends Controller
         $data = DB::table('prasidang')
             ->join('students', 'prasidang.nim', '=', 'students.nim')
             ->select('students.*', 'prasidang.*')
-            ->where([['status', '=', 'proses']])
             ->get();
         return DataTables::of($data)
             ->addColumn('file_tesis', function ($data) {
