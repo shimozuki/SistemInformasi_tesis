@@ -147,7 +147,7 @@
         <a href="{{url('/viewpasca')}}" class="nav-link">
           <i class="nav-icon fas fa-hand-holding"></i>
           <p>
-            Pascasidang
+            Pengumpulan Berkas
           </p>
         </a>
       </li>
