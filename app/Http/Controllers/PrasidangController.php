@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
-use File;
 use Storage;
+use Illuminate\Support\Facades\File;
 
 class PrasidangController extends Controller
 {
@@ -76,6 +76,7 @@ class PrasidangController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function olnliyou(Request $request)
     {
         $id_ps = 'PS' . date('dmy') . Str::random(2);
@@ -96,12 +97,38 @@ class PrasidangController extends Controller
             ]
         );
 
-        $fileTesis = $request->file('file_tesis') ? $request->file('file_tesis')->store('tesis') : null;
-        $fileKartuBimbingan = $request->file('file_kartu_bimbingan') ? $request->file('file_kartu_bimbingan')->store('kartu_bimbingan') : null;
-        $fileHalaman = $request->file('file_halaman') ? $request->file('file_halaman')->store('halaman') : null;
-        $pasfoto = $request->file('pasfoto') ? $request->file('pasfoto')->store('pasfoto') : null;
-        $bebasAdministrasi = $request->file('bebas_administrasi') ? $request->file('bebas_administrasi')->store('bebas_administrasi') : null;
-        $plagiasi = $request->file('plagiasi') ? $request->file('plagiasi')->store('plagiasi') : null;
+
+        function generateUniqueFileName($file, $nim)
+        {
+            $extension = $file->getClientOriginalExtension();
+            $timestamp = str_replace('.', '', microtime(true));
+            return $nim.'_' .$timestamp . '.' . $extension;
+        }
+
+        $directories = ['tesis', 'kartu_bimbingan', 'halaman', 'pasfoto', 'bebas_administrasi', 'plagiasi'];
+        foreach ($directories as $directory) {
+            File::ensureDirectoryExists(public_path($directory));
+        }
+
+
+
+        $fileTesis = $request->file('file_tesis') ? $request->file('file_tesis')->move(public_path('tesis'), generateUniqueFileName($request->file('file_tesis'), $request->nim)) : null;
+        $fileTesisName = $fileTesis ? basename($fileTesis) : null;
+
+        $fileKartuBimbingan = $request->file('file_kartu_bimbingan') ? $request->file('file_kartu_bimbingan')->move(public_path('kartu_bimbingan'), generateUniqueFileName($request->file('file_kartu_bimbingan'), $request->nim)) : null;
+        $fileKartuBimbinganName = $fileKartuBimbingan ? basename($fileKartuBimbingan) : null;
+
+        $fileHalaman = $request->file('file_halaman') ?
+            $request->file('file_halaman')->move(public_path('halaman'), generateUniqueFileName($request->file('file_halaman'), $request->nim)) : null;
+
+        $pasfoto = $request->file('pasfoto') ?
+            $request->file('pasfoto')->move(public_path('pasfoto'), generateUniqueFileName($request->file('pasfoto'), $request->nim)) : null;
+
+        $bebasAdministrasi = $request->file('bebas_administrasi') ?
+            $request->file('bebas_administrasi')->move(public_path('bebas_administrasi'), generateUniqueFileName($request->file('bebas_administrasi'), $request->nim)) : null;
+
+        $plagiasi = $request->file('plagiasi') ?
+            $request->file('plagiasi')->move(public_path('plagiasi'), generateUniqueFileName($request->file('plagiasi'), $request->nim)) : null;
 
         $data = Prasidang::insert([
             'id_pcs' => $id_ps,
@@ -111,12 +138,12 @@ class PrasidangController extends Controller
             'konsentrasi' => $request->konsentrasi,
             'judul_tesis_bahasa_inggris' => $request->judul_tesis_bahasa_inggris,
             'judul_tesis_bahasa_indonesia' => $request->judul_tesis_bahasa_indonesia,
-            'file_tesis' => $fileTesis,
-            'file_kartu_bimbingan' => $fileKartuBimbingan,
-            'file_halaman' => $fileHalaman,
-            'pasfoto' => $pasfoto,
-            'bebas_administrasi' => $bebasAdministrasi,
-            'plagiasi' => $plagiasi,
+            'file_tesis' => $fileTesisName,
+            'file_kartu_bimbingan' => $fileKartuBimbinganName,
+            'file_halaman' =>  $fileHalaman ? basename($fileHalaman) : null,
+            'pasfoto' => $pasfoto ? basename($pasfoto) : null,
+            'bebas_administrasi' => $bebasAdministrasi ? basename($bebasAdministrasi) : null,
+            'plagiasi' => $plagiasi ? basename($plagiasi) : null,
             'created_at' => now()
         ]);
 
