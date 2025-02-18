@@ -1,5 +1,5 @@
 {!! Form::model($data, [
-'route' => $data->exists ? ['manage_prasidang.update', $data->id_ps] : ['manage_prasidang.store'],
+'route' => $data->exists ? ['manage_prasidang.update', $data->id_pcs] : ['manage_prasidang.store'],
 'method' => $data->exists ? 'PUT' : 'POST'
 ]) !!}
 <div class="row">
