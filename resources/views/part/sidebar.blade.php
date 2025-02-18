@@ -61,7 +61,7 @@
         <a href="{{url('/pascasidang')}}" class="nav-link">
           <i class="nav-icon fas fa-file-upload"></i>
           <p>
-            Upload Berkas
+            Pascasidang
           </p>
         </a>
       </li>
