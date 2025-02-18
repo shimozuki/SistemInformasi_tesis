@@ -190,7 +190,14 @@ class PascasidangController extends Controller
     }
     public function dataTable()
     {
-        $data = Pascasidang::where('nim',Session::get('username'))->get();
+        if(Session::get('login')){
+            if (Session::get('hak_akses') == 'mahasiswa'){
+                $data = Pascasidang::where('nim',Session::get('username'))->get();
+            }else{
+                $data = Pascasidang::all();
+            }
+        }
+       
         return DataTables::of($data)
         ->addColumn('skripsi', function($data){
              $path = 'upload/pascasidang/'.$data->file_skripsi;
