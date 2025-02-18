@@ -189,11 +189,8 @@ class PascasidangController extends Controller
     {
         if (Session::get('hak_akses') == 'mahasiswa') {
             $data = Pascasidang::where('nim', Session::get('username'))->get();
-
-            return $data;
         } else {
             $data = Pascasidang::all();
-            return $data;
         }
 
         return DataTables::of($data)
