@@ -2,10 +2,16 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
-class Auth extends Model
+class Auth extends Authenticatable implements AuthenticatableContract
 {
     protected $primaryKey = 'id_auth';
     public $incrementing = false;
+
+    public function getAuthIdentifier()
+    {
+        return $this->getKey();
+    }
 }

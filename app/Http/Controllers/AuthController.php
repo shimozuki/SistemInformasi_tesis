@@ -32,6 +32,8 @@ class AuthController extends Controller
                 Session::put('username', $data->username);
                 Session::put('hak_akses', $data->hak_akses);
                 Session::put('login', TRUE);
+
+                auth()->login($data);
                 return response()->json([
                     'success' => true
                 ],200);

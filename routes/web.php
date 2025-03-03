@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ManageProposalController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\PrasidangController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('login/login');
 });
+
+Route::middleware(['web', 'custom.auth'])->group(function () {
+    Route::get('/chat', [MessagesController::class, 'index']);
+});
+
+
 
 /* Route Home*/
 Route::resource('/dashboard', 'DashboardController');

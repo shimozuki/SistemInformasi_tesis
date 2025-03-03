@@ -37,22 +37,20 @@ class MessagesController extends Controller
     // }
     public function pusherAuth(Request $request)
     {
-        // Mendapatkan data pengguna dari sesi
-        $user = Session::get('login');
-
-        // Memeriksa apakah data pengguna ada
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+        if (!Session::get('login')) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        // Menggunakan data pengguna dari sesi untuk otentikasi Pusher
         return Chatify::pusherAuth(
-            $user,
-            $user,
-            $request['channel_name'],
-            $request['socket_id']
+            $request->user(), // First argument
+            Auth::user(),     // Second argument
+            $request['channel_name'], // Third argument
+            $request['socket_id'] // Fourth argument
         );
     }
+
+
+
 
     /**
      * Returning the view of the app with the required data.
@@ -151,7 +149,7 @@ class MessagesController extends Controller
 
         if (!$error->status) {
             $message = Chatify::newMessage([
-                'from_id' => Auth::user()->id,
+                'from_id' => Auth::user()->id_auth,
                 'to_id' => $request['id'],
                 'body' => htmlentities(trim($request['message']), ENT_QUOTES, 'UTF-8'),
                 'attachment' => ($attachment) ? json_encode((object)[
@@ -160,9 +158,9 @@ class MessagesController extends Controller
                 ]) : null,
             ]);
             $messageData = Chatify::parseMessage($message);
-            if (Auth::user()->id != $request['id']) {
+            if (Auth::user()->id_auth != $request['id']) {
                 Chatify::push("private-chatify." . $request['id'], 'messaging', [
-                    'from_id' => Auth::user()->id,
+                    'from_id' => Auth::user()->id_auth,
                     'to_id' => $request['id'],
                     'message' => Chatify::messageCard($messageData, true)
                 ]);
@@ -240,38 +238,30 @@ class MessagesController extends Controller
      */
     public function getContacts(Request $request)
     {
-        // get all users that received/sent message from/to [Auth user]
-        $users = Message::join('users',  function ($join) {
-            $join->on('ch_messages.from_id', '=', 'users.id')
-                ->orOn('ch_messages.to_id', '=', 'users.id');
-        })
-            ->where(function ($q) {
-                $q->where('ch_messages.from_id', Auth::user()->id)
-                    ->orWhere('ch_messages.to_id', Auth::user()->id);
+        $users = DB::table('ch_messages')
+            ->join('auths', function ($join) {
+                $join->on('ch_messages.from_id', '=', 'auths.id_auth')
+                    ->orOn('ch_messages.to_id', '=', 'auths.id_auth');
             })
-            ->where('users.id', '!=', Auth::user()->id)
-            ->select('users.*', DB::raw('MAX(ch_messages.created_at) max_created_at'))
+            ->select('auths.id_auth', 'auths.username', DB::raw('MAX(ch_messages.created_at) as max_created_at'))
+            ->groupBy('auths.id_auth', 'auths.username') // Include all non-aggregated columns
             ->orderBy('max_created_at', 'desc')
-            ->groupBy('users.id')
-            ->paginate($request->per_page ?? $this->perPage);
+            ->paginate($request->per_page ?? $this->perPage); // Use paginate if you want pagination
 
-        $usersList = $users->items();
+        // Prepare the contacts list
+        $contacts = $users->isNotEmpty() ? '' : '<p class="message-hint center-el"><span>Your contact list is empty</span></p>';
 
-        if (count($usersList) > 0) {
-            $contacts = '';
-            foreach ($usersList as $user) {
-                $contacts .= Chatify::getContactItem($user);
-            }
-        } else {
-            $contacts = '<p class="message-hint center-el"><span>Your contact list is empty</span></p>';
+        foreach ($users as $user) {
+            $contacts .= Chatify::getContactItem($user);
         }
 
-        return Response::json([
+        return response()->json([
             'contacts' => $contacts,
-            'total' => $users->total() ?? 0,
-            'last_page' => $users->lastPage() ?? 1,
+            'total' => $users->total(),
+            'last_page' => $users->lastPage(),
         ], 200);
     }
+
 
     /**
      * Update user's list item data
