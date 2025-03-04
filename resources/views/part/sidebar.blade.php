@@ -187,8 +187,8 @@
         </a>
       </li>
       }
-      @endif
-      <li class="nav-header">Kirim Pesan</li>
+      @elseif(Session::get('hak_akses') != 'mahasiswa'){
+        <li class="nav-header">Kirim Pesan</li>
       <li class="nav-item">
         <a href="{{url('/chat')}}" class="nav-link">
           <i class="nav-icon fas fa-envelope"></i>
@@ -197,6 +197,8 @@
           </p>
         </a>
       </li>
+      }
+      @endif
     </ul>
   </nav>
   <!-- /.sidebar-menu -->
