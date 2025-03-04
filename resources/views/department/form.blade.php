@@ -1,6 +1,6 @@
 {!! Form::model($data, [
-    'route' => $data->exists ? ['department.update', $data->id_prodi] : ['department.store'],
-    'method' => $data->exists ? 'PUT' : 'POST'
+'route' => $data->exists ? ['department.update', $data->id_prodi] : ['department.store'],
+'method' => $data->exists ? 'PUT' : 'POST'
 ]) !!}
 <div class="row">
     <div class="col-md-6">
@@ -30,6 +30,17 @@
             <label for="" class="control-label">Alamat</label>
             {!! Form::textarea('alamat', null, ['class' => 'form-control', 'id' => 'alamat','rows'=>'5']) !!}
         </div>
+        @if ($data->exists)
+        <label for="" class="control-label">Reset Password</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <input type="checkbox" value="check" name="check">
+                </span>
+            </div>
+            <input type="text" class="form-control" name="password" value="{{$data->nidn.'Dsn*'}}" readonly>
+        </div>
+        @endif
     </div>
 </div>
 

@@ -86,7 +86,7 @@ class DepartmentController extends Controller
             [
                 'id_auth' => $id_auth,
                 'username' => $request->nim,
-                'password' => bcrypt($request->nim.'Aa*'),
+                'password' => bcrypt($request->nidn.'Dsn*'),
                 'hak_akses' => 'prodi',
                 'created_at' => now(),
                 'name' => $request->nama,
