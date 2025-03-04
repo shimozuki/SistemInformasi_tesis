@@ -80,8 +80,8 @@ class InstitutionController extends Controller
         $data = DB::table('auths')->insert([
             [
                 'id_auth' => $id_auth,
-                'username' => $request->nim,
-                'password' => bcrypt($request->nim.'Aa*'),
+                'username' => $request->nidn,
+                'password' => bcrypt($request->nidn.'Aa*'),
                 'hak_akses' => 'lppm',
                 'created_at' => now(),
                 'name' => $request->nama,
