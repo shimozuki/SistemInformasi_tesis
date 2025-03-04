@@ -79,7 +79,9 @@ class StudentController extends Controller
                 'username' => $request->nim,
                 'password' => bcrypt($request->nim.'Aa*'),
                 'hak_akses' => 'mahasiswa',
-                'created_at' => now()
+                'created_at' => now(),
+                'nama' => $request->nama,
+                'email' => $request->email
             ]
         ]);
 

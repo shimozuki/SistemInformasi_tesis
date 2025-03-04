@@ -85,10 +85,12 @@ class DepartmentController extends Controller
         $data = DB::table('auths')->insert([
             [
                 'id_auth' => $id_auth,
-                'username' => $request->nidn,
-                'password' => bcrypt($request->nidn.'Dsn*'),
-                'hak_akses' => 'prodi',
-                'created_at' => now()
+                'username' => $request->nim,
+                'password' => bcrypt($request->nim.'Aa*'),
+                'hak_akses' => 'mahasiswa',
+                'created_at' => now(),
+                'nama' => $request->nama,
+                'email' => $request->email
             ]
         ]);
 
