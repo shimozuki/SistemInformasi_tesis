@@ -188,6 +188,15 @@
       </li>
       }
       @endif
+      <li class="nav-header">Kirim Pesan</li>
+      <li class="nav-item">
+        <a href="{{url('/chat')}}" class="nav-link">
+          <i class="nav-icon fas fa-envelope"></i>
+          <p>
+            Mesaage
+          </p>
+        </a>
+      </li>
     </ul>
   </nav>
   <!-- /.sidebar-menu -->
