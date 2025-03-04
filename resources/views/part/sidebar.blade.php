@@ -116,6 +116,15 @@
           </p>
         </a>
       </li>
+      <li class="nav-header">Kirim Pesan</li>
+      <li class="nav-item">
+        <a href="{{url('/chat')}}" class="nav-link">
+          <i class="nav-icon fas fa-envelope"></i>
+          <p>
+            Mesaage
+          </p>
+        </a>
+      </li>
       }
       @elseif(Session::get('hak_akses') == 'lppm'){
       <li class="nav-header">ADMIN</li>
@@ -159,6 +168,15 @@
           </p>
         </a>
       </li>
+      <li class="nav-header">Kirim Pesan</li>
+      <li class="nav-item">
+        <a href="{{url('/chat')}}" class="nav-link">
+          <i class="nav-icon fas fa-envelope"></i>
+          <p>
+            Mesaage
+          </p>
+        </a>
+      </li>
       }
       @elseif(Session::get('hak_akses') == 'dosen'){
       <li class="nav-header">Dosen</li>
@@ -186,9 +204,7 @@
           </p>
         </a>
       </li>
-      }
-      @elseif(Session::get('hak_akses') != 'mahasiswa'){
-        <li class="nav-header">Kirim Pesan</li>
+      <li class="nav-header">Kirim Pesan</li>
       <li class="nav-item">
         <a href="{{url('/chat')}}" class="nav-link">
           <i class="nav-icon fas fa-envelope"></i>
