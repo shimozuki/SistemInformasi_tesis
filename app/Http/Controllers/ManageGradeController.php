@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Student;
 use DataTables;
 use App\Grade;
+use App\Guidance;
+use App\Schedule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
@@ -20,35 +22,35 @@ class ManageGradeController extends Controller
      */
     public function index()
     {
-        if(Session::get('login')){
-                if (Session::get('hak_akses') == 'mahasiswa'){
-                    $data = DB::table('students')
-                                ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
-                                ->select('students.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'dosen'){
-                    $data = DB::table('lecturers')
-                                ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
-                                ->select('lecturers.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'lppm'){
-                    $data = DB::table('institutions')
-                                ->join('auths', 'institutions.id_auth', '=', 'auths.id_auth')
-                                ->select('institutions.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'prodi'){
-                    $data = DB::table('departments')
-                                ->join('auths', 'departments.id_auth', '=', 'auths.id_auth')
-                                ->select('departments.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                }
-        
-        return view('manage_grade/index', compact('data'));
-        }else{
+        if (Session::get('login')) {
+            if (Session::get('hak_akses') == 'mahasiswa') {
+                $data = DB::table('students')
+                    ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
+                    ->select('students.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'dosen') {
+                $data = DB::table('lecturers')
+                    ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
+                    ->select('lecturers.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'lppm') {
+                $data = DB::table('institutions')
+                    ->join('auths', 'institutions.id_auth', '=', 'auths.id_auth')
+                    ->select('institutions.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'prodi') {
+                $data = DB::table('departments')
+                    ->join('auths', 'departments.id_auth', '=', 'auths.id_auth')
+                    ->select('departments.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            }
+
+            return view('manage_grade/index', compact('data'));
+        } else {
             return redirect('login');
         }
     }
@@ -60,8 +62,10 @@ class ManageGradeController extends Controller
      */
     public function create()
     {
-        //
+        $nims = Guidance::select('nim')->distinct()->get(); // Fetch distinct NIMs
+        return view('manage_grade.form', compact('nims'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -71,8 +75,29 @@ class ManageGradeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nim' => 'required|string',
+            'nilai_bimbingan' => 'required|numeric',
+            'nilai_pengajuan' => 'required|numeric',
+            'nilai_sidang' => 'required|numeric',
+        ]);
+
+        // Generate id_nilai in the format NIYYMMDDx
+        $date = new \DateTime(); // Get the current date
+        $year = $date->format('y'); // Get last two digits of the year
+        $month = $date->format('m'); // Get month
+        $day = $date->format('d'); // Get day
+        $randomLetter = chr(rand(97, 122)); // Generate a random lowercase letter (a-z)
+
+        // Combine to form id_nilai
+        $id_nilai = 'NI' . $year . $month . $day . $randomLetter;
+
+        // Create the Grade record with the generated id_nilai
+        Grade::create(array_merge($validatedData, ['id_nilai' => $id_nilai]));
+
+        return back()->with('success', 'Grade added successfully.');
     }
+
 
     /**
      * Display the specified resource.
@@ -107,7 +132,7 @@ class ManageGradeController extends Controller
     public function update(Request $request, $id)
     {
         $data = Grade::findOrFail($id);
-        
+
         $data->nilai_bimbingan = $request->nilai_bimbingan;
         $data->nilai_sidang = $request->nilai_sidang;
         $data->save();
@@ -125,47 +150,47 @@ class ManageGradeController extends Controller
     }
     public function dataTable()
     {
-        if(Session::get('login')){
-                if (Session::get('hak_akses') == 'mahasiswa'){
-                    $ambil = DB::table('students')
-                                ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
-                                ->select('students.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'dosen'){
-                    $ambil = DB::table('lecturers')
-                                ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
-                                ->select('lecturers.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'lppm'){
-                    $ambil = DB::table('institutions')
-                                ->join('auths', 'institutions.id_auth', '=', 'auths.id_auth')
-                                ->select('institutions.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'prodi'){
-                    $ambil = DB::table('departments')
-                                ->join('auths', 'departments.id_auth', '=', 'auths.id_auth')
-                                ->select('departments.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                }
+        if (Session::get('login')) {
+            if (Session::get('hak_akses') == 'mahasiswa') {
+                $ambil = DB::table('students')
+                    ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
+                    ->select('students.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'dosen') {
+                $ambil = DB::table('lecturers')
+                    ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
+                    ->select('lecturers.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'lppm') {
+                $ambil = DB::table('institutions')
+                    ->join('auths', 'institutions.id_auth', '=', 'auths.id_auth')
+                    ->select('institutions.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'prodi') {
+                $ambil = DB::table('departments')
+                    ->join('auths', 'departments.id_auth', '=', 'auths.id_auth')
+                    ->select('departments.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
             }
+        }
         $data = DB::table('grades')
-        ->join('students','grades.nim','=','students.nim')
-        ->select('grades.*','students.*')
-        ->where('students.jurusan',$ambil->jurusan)
-        ->get();
+            ->join('students', 'grades.nim', '=', 'students.nim')
+            ->select('grades.*', 'students.*')
+            ->where('students.jurusan', $ambil->jurusan)
+            ->get();
         return DataTables::of($data)
-        ->addColumn('action', function($data){
-            return view('layout._action_mgrade', [
-                'data' => $data,
-                'url_edit' => route('manage_grade.edit', $data->id_nilai),
-            ]);
-        })
-        ->addIndexColumn()
-        ->rawColumns(['action'])
-        ->make(true);
+            ->addColumn('action', function ($data) {
+                return view('layout._action_mgrade', [
+                    'data' => $data,
+                    'url_edit' => route('manage_grade.edit', $data->id_nilai),
+                ]);
+            })
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
     }
 }

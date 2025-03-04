@@ -28,7 +28,10 @@
             <!-- /.card -->
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('grade')}}" class="btn btn-primary">Megister Manajemen Inovasi</a>
+                    <a href="{{ route('grade')}}" class="btn btn-primary">Export</a>
+                    <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#addGradeModal">
+                        Add Grade
+                    </button>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive">
@@ -65,6 +68,43 @@
     </div>
     <!-- /.row -->
     @include('layout/_modal')
+    <!-- Modal for Adding Grades -->
+    <div class="modal fade" id="addGradeModal" tabindex="-1" role="dialog" aria-labelledby="addGradeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addGradeModalLabel">Add Grade</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {!! Form::open(['route' => ['manage_grade.store'], 'method' => 'POST']) !!}
+                    <div class="form-group">
+                        <label for="nim" class="control-label">NIM</label>
+                        {!! Form::select('nim', $nims->pluck('nim', 'nim'), null, ['class' => 'form-control', 'id' => 'nim']) !!}
+                    </div>
+                    <div class="form-group">
+                        <label for="nilai_pengajuan" class="control-label">Nilai proposal</label>
+                        {!! Form::text('nilai_pengajuan', null, ['class' => 'form-control', 'id' => 'nilai_pengajuan']) !!}
+                    </div>
+                    <div class="form-group">
+                        <label for="nilai_bimbingan" class="control-label">Nilai Bimbingan</label>
+                        {!! Form::text('nilai_bimbingan', null, ['class' => 'form-control', 'id' => 'nilai_bimbingan']) !!}
+                    </div>
+                    <div class="form-group">
+                        <label for="nilai_sidang" class="control-label">Nilai Sidang</label>
+                        {!! Form::text('nilai_sidang', null, ['class' => 'form-control', 'id' => 'nilai_sidang']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 @endsection
 @push('js')
@@ -73,7 +113,7 @@
 <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script>
-    $(function () {
+    $(function() {
         $('#example1').DataTable({
             responsive: true,
             processing: true,
@@ -122,6 +162,5 @@
 
         });
     });
-
 </script>
 @endpush

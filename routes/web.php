@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ManageGradeController;
 use App\Http\Controllers\ManageProposalController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\PrasidangController;
@@ -111,6 +112,7 @@ Route::post('/export-excel', [ManageProposalController::class, 'exportExcel'])->
 Route::any('/table/riwayatpp', 'ManageProposalController@dataTable2')->name('table.riwayatpp');
 
 /* Route Guidance*/
+Route::get('/grades/create', [ManageGradeController::class, 'create'])->name('grade.create');
 Route::resource('/guidance','GuidanceController');
 Route::post('/guidance/{id}','GuidanceController@update');
 Route::any('/table/guidance', 'GuidanceController@dataTable')->name('table.guidance');

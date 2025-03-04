@@ -8,4 +8,11 @@ class Grade extends Model
 {
     protected $primaryKey = 'id_nilai';
     public $incrementing = false;
+    protected $fillable = [
+        'id_nilai',
+        'nim',
+        'nilai_bimbingan',
+        'nilai_sidang',
+        'nilai_pengajuan',
+    ];
 }

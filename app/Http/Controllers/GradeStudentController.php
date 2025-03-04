@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Session;
 use App\Exports\GradeExport;
 use App\Exports\Grade2Export;
 use App\Exports\Grade3Export;
+use App\Guidance;
+use App\Prasidang;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
 
@@ -49,8 +51,8 @@ class GradeStudentController extends Controller
                                 ->where('auths.id_auth', Session::get('id_auth'))
                                 ->first();
                 }
-        
-        return view('grade_student/index', compact('data'));
+                $nims = Prasidang::select('nim')->distinct()->get();
+        return view('grade_student/index', compact('data', 'nims'));
         }else{
             return redirect('login');
         }
