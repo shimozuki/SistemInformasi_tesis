@@ -105,6 +105,24 @@
             </div>
             <div class="col-md-6">
                 <!-- BAR CHART -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Rasio Pendaftaran Tesis dengan Mahasiswa yang Sidang</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <canvas id="thesisRatioChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- BAR CHART -->
                 <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">Jumlah Lulusan Mahasiswa</h3>
@@ -177,7 +195,7 @@
             'Perempuan'
         ],
         datasets: [{
-            data: [ <?= $row['l'] ?> , <?= $row['p'] ?> ],
+            data: [<?= $row['l'] ?>, <?= $row['p'] ?>],
             backgroundColor: ['#f56954', '#00c0ef'],
         }]
     }
@@ -195,13 +213,13 @@
     })
 </script>
 <script>
-    $(function () {
+    $(function() {
 
 
         $.ajax({
             url: "{{ route('front.grad') }}",
             method: "GET",
-            success: function (data) {
+            success: function(data) {
                 var label = [],
                     value = [],
                     data = data.data;
@@ -298,7 +316,7 @@
         $.ajax({
             url: '{{route("api.dashboard")}}',
             method: 'GET',
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 $('#jumlah_mhs').html(data.student);
                 $('#jumlah_dosen').html(data.lecturer);
@@ -307,6 +325,48 @@
             }
         })
     })
+</script>
+<script>
+    $(function () {
+        $.ajax({
+            url: '{{ route("api.thesis-ratio") }}',
+            method: 'GET',
+            success: function (data) {
+                console.log(data);
 
+                var ctx = document.getElementById("thesisRatioChart").getContext('2d');
+                var thesisRatioChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Pendaftaran Tesis', 'Mahasiswa yang Sidang'],
+                        datasets: [{
+                            label: 'Jumlah',
+                            data: [data.thesisRegistrations, data.successfulDefenses],
+                            backgroundColor: ['#007bff', '#28a745'],
+                            borderColor: ['#007bff', '#28a745'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+                // Menampilkan rasio
+                var ratio = data.ratio.toFixed(2);
+                var ratioText = `Rasio: ${ratio}`;
+                var ratioElement = document.createElement('div');
+                ratioElement.className = 'text-center';
+                ratioElement.innerHTML = ratioText;
+                document.getElementById('thesisRatioChart').parentNode.appendChild(ratioElement);
+            }
+        });
+    });
 </script>
 @endpush

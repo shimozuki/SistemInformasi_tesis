@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManageProposalController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\PrasidangController;
@@ -28,6 +29,7 @@ Route::middleware(['web', 'custom.auth'])->group(function () {
 
 /* Route Home*/
 Route::resource('/dashboard', 'DashboardController');
+Route::get('/api/thesis-ratio', [DashboardController::class, 'getThesisRatio'])->name('api.thesis-ratio');
 
 /* Route Notice*/
 Route::resource('/notice', 'NoticeController');
@@ -104,6 +106,8 @@ Route::resource('/manage_proposal','ManageProposalController');
 Route::get('/manage_proposal', [ManageProposalController::class, 'index'])->name('manage_proposal');
 Route::post('/manage_proposal/update/{id}', [ManageProposalController::class, 'updateStatus'])->name('updatestatus');
 Route::any('/table/manage_proposal', 'ManageProposalController@dataTable')->name('table.manage_proposal');
+Route::any('/table/laporan', 'ManageProposalController@dataTable3')->name('table.laporan');
+Route::post('/export-excel', [ManageProposalController::class, 'exportExcel'])->name('export.excel');
 Route::any('/table/riwayatpp', 'ManageProposalController@dataTable2')->name('table.riwayatpp');
 
 /* Route Guidance*/

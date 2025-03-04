@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LaporanTesis;
 use App\Student;
 use App\Grade;
 use DataTables;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ManageProposalController extends Controller
 {
@@ -252,5 +254,80 @@ class ManageProposalController extends Controller
             ->addIndexColumn()
             ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function dataTable3(Request $request)
+    {
+        $data = DB::table('submissions_proposal')
+            ->join('students', 'submissions_proposal.nim', '=', 'students.nim')
+            ->select(
+                'students.*',
+                'submissions_proposal.topik_tesis1',
+                'submissions_proposal.topik_tesis2',
+                'submissions_proposal.topik_tesis3',
+                DB::raw("CASE 
+                WHEN submissions_proposal.status_topik1 = 'terima' THEN submissions_proposal.topik_tesis1
+                WHEN submissions_proposal.status_topik2 = 'terima' THEN submissions_proposal.topik_tesis2
+                WHEN submissions_proposal.status_topik3 = 'terima' THEN submissions_proposal.topik_tesis3
+                ELSE NULL
+            END as accepted_thesis_topic"),
+                'submissions_proposal.created_at'
+            )
+            ->where(function ($query) use ($request) {
+                if ($request->start_date) {
+                    $query->where('submissions_proposal.created_at', '>=', $request->start_date);
+                }
+                if ($request->end_date) {
+                    $query->where('submissions_proposal.created_at', '<=', $request->end_date);
+                }
+            })
+            ->where(function ($query) {
+                $query->where('submissions_proposal.status_topik1', 'terima')
+                    ->orWhere('submissions_proposal.status_topik2', 'terima')
+                    ->orWhere('submissions_proposal.status_topik3', 'terima');
+            })
+            ->get()
+            ->filter(function ($item) {
+                return !is_null($item->accepted_thesis_topic);
+            })
+            ->map(function ($item) {
+                $item->created_at = Carbon::parse($item->created_at)->translatedFormat('l, j F Y');
+                return $item;
+            });
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        // Retrieve filtered data based on request parameters
+        $query = DB::table('submissions_proposal')
+            ->join('students', 'submissions_proposal.nim', '=', 'students.nim')
+            ->select(
+                'students.nim',
+                'students.nama',
+                DB::raw("CASE 
+                WHEN submissions_proposal.status_topik1 = 'terima' THEN submissions_proposal.topik_tesis1
+                WHEN submissions_proposal.status_topik2 = 'terima' THEN submissions_proposal.topik_tesis2
+                WHEN submissions_proposal.status_topik3 = 'terima' THEN submissions_proposal.topik_tesis3
+                ELSE NULL
+            END as accepted_thesis_topic")
+            );
+
+        // Apply date filters if provided
+        if ($request->start_date) {
+            $query->where('submissions_proposal.tanggal', '>=', $request->start_date);
+        }
+        if ($request->end_date) {
+            $query->where('submissions_proposal.tanggal', '<=', $request->end_date);
+        }
+
+        // Get the data
+        $data = $query->get();
+
+        // Create and return the Excel file
+        return Excel::download(new LaporanTesis($data), 'Laporan_Proposal_tesis.xlsx');
     }
 }

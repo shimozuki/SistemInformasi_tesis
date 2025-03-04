@@ -6,6 +6,7 @@ use App\Notice;
 use App\Student;
 use App\Lecturer;
 use App\Group;
+use App\Prasidang;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -21,35 +22,35 @@ class DashboardController extends Controller
     public function index()
     {
         if (Session::get('login')) {
-            if (Session::get('hak_akses') == 'mahasiswa'){
-                    $data = DB::table('students')
-                                ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
-                                ->select('students.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'dosen'){
-                    $data = DB::table('lecturers')
-                                ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
-                                ->select('lecturers.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'lppm'){
-                    $data = DB::table('institutions')
-                                ->join('auths', 'institutions.id_auth', '=', 'auths.id_auth')
-                                ->select('institutions.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'prodi'){
-                    $data = DB::table('departments')
-                                ->join('auths', 'departments.id_auth', '=', 'auths.id_auth')
-                                ->select('departments.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                }
-            $row['l'] = Student::where('jk','Laki-Laki')->count();
-            $row['p'] = Student::where('jk','Perempuan')->count();
+            if (Session::get('hak_akses') == 'mahasiswa') {
+                $data = DB::table('students')
+                    ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
+                    ->select('students.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'dosen') {
+                $data = DB::table('lecturers')
+                    ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
+                    ->select('lecturers.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'lppm') {
+                $data = DB::table('institutions')
+                    ->join('auths', 'institutions.id_auth', '=', 'auths.id_auth')
+                    ->select('institutions.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'prodi') {
+                $data = DB::table('departments')
+                    ->join('auths', 'departments.id_auth', '=', 'auths.id_auth')
+                    ->select('departments.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            }
+            $row['l'] = Student::where('jk', 'Laki-Laki')->count();
+            $row['p'] = Student::where('jk', 'Perempuan')->count();
             $dashboard = notice::latest()->limit(2)->get();
-            return view('dashboard.index', compact('dashboard','data','row'));
+            return view('dashboard.index', compact('dashboard', 'data', 'row'));
         } else {
             return redirect('login');
         }
@@ -130,6 +131,21 @@ class DashboardController extends Controller
             'student' => $student,
             'lecturer' => $lecturer,
             'group' => $group
+        ]);
+    }
+
+    public function getThesisRatio()
+    {
+        $thesisRegistrations = Prasidang::count();
+
+        $successfulDefenses = Lecturer::count();
+
+        $ratio = $successfulDefenses > 0 ? $thesisRegistrations / $successfulDefenses : 0;
+
+        return response()->json([
+            'thesisRegistrations' => $thesisRegistrations,
+            'successfulDefenses' => $successfulDefenses,
+            'ratio' => $ratio,
         ]);
     }
 
