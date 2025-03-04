@@ -90,7 +90,7 @@ class LecturerController extends Controller
                 'password' => bcrypt($request->nidn.'Dsn*'),
                 'hak_akses' => 'dosen',
                 'created_at' => now(),
-                'nama' => $request->nama,
+                'name' => $request->nama,
                 'email' => $request->email
             ]
         ]);

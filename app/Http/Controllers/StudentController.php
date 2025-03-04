@@ -80,7 +80,7 @@ class StudentController extends Controller
                 'password' => bcrypt($request->nim.'Aa*'),
                 'hak_akses' => 'mahasiswa',
                 'created_at' => now(),
-                'nama' => $request->nama,
+                'name' => $request->nama,
                 'email' => $request->email
             ]
         ]);
