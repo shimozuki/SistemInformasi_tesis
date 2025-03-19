@@ -1,12 +1,16 @@
 {!! Form::model($data, [
-    'route' => $data->exists ? ['lecturer.update', $data->nidn] : ['lecturer.store'],
-    'method' => $data->exists ? 'PUT' : 'POST'
+'route' => $data->exists ? ['lecturer.update', $data->nidn] : ['lecturer.store'],
+'method' => $data->exists ? 'PUT' : 'POST'
 ]) !!}
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
             <label for="" class="control-label">Nidn</label>
             {!! Form::text('nidn', null, ['class' => 'form-control', 'id' => 'nidn']) !!}
+
+            @if ($errors->has('nidn'))
+            <span class="text-danger">{{ $errors->first('nidn') }}</span>
+            @endif
         </div>
         <div class="form-group">
             <label for="" class="control-label">Nama</label>

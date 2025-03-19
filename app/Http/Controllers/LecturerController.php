@@ -18,9 +18,9 @@ class LecturerController extends Controller
      */
     public function index()
     {
-        if(Session::get('login')){
+        if (Session::get('login')) {
             return view('lecturer/index');
-        }else{
+        } else {
             return redirect('login');
         }
     }
@@ -44,33 +44,39 @@ class LecturerController extends Controller
      */
     public function store(Request $request)
     {
-        $id_auth = 'A'.date('dmy').Str::random(3);
+        // Generate a unique id_auth
+        $id_auth = 'A' . date('dmy') . Str::random(3);
+
+        // Validate the request data
         $this->validate(
             $request,
             [
-                'nidn' => 'required',
+                'nidn' => 'required|unique:lecturers,nidn',
                 'nama' => 'required',
                 'alamat' => 'required',
                 'no_hp' => 'required',
-                'email' => 'required',
+                'email' => 'required|email',
                 'pembimbing' => 'required',
                 'penguji' => 'required',
-
-
             ],
             [
                 'nidn.required' => 'Kolom nidn grup wajib diisi',
+                'nidn.unique' => 'NIDN sudah digunakan oleh dosen lain',
+                'nidn.number' => 'NIDN harus berupa angka',
                 'nama.required' => 'Kolom nama wajib diisi',
                 'alamat.required' => 'Kolom alamat grup wajib diisi',
                 'no_hp.required' => 'Kolom no hp wajib diisi',
                 'email.required' => 'Kolom email grup wajib diisi',
+                'email.email' => 'Format email tidak valid',
                 'pembimbing.required' => 'Kolom pembimbing wajib diisi',
                 'penguji.required' => 'Kolom penguji wajib diisi'
-
             ]
         );
-        $data = Lecturer::insert([
-            [
+
+        DB::beginTransaction();
+
+        try {
+            $lecturer = Lecturer::create([
                 'nidn' => $request->nidn,
                 'id_auth' => $id_auth,
                 'nama' => $request->nama,
@@ -80,23 +86,28 @@ class LecturerController extends Controller
                 'pembimbing' => $request->pembimbing,
                 'penguji' => $request->penguji,
                 'created_at' => now()
-            ]
-        ]);
-        
-        $data = DB::table('auths')->insert([
-            [
+            ]);
+
+            DB::table('auths')->insert([
                 'id_auth' => $id_auth,
                 'username' => $request->nidn,
-                'password' => bcrypt($request->nidn.'Dsn*'),
+                'password' => bcrypt($request->nidn . 'Dsn*'),
                 'hak_akses' => 'dosen',
                 'created_at' => now(),
                 'name' => $request->nama,
                 'email' => $request->email
-            ]
-        ]);
+            ]);
 
-        return $data;
+            DB::commit();
+
+            return response()->json(['message' => 'Dosen berhasil ditambahkan'], 201);
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(['message' => 'Terjadi kesalahan saat menambahkan dosen', 'error' => $e->getMessage()], 500);
+        }
     }
+
 
     /**
      * Display the specified resource.
@@ -133,7 +144,7 @@ class LecturerController extends Controller
         $this->validate(
             $request,
             [
-                'nidn' => 'required',
+                'nidn' => 'required|number',
                 'nama' => 'required',
                 'alamat' => 'required',
                 'no_hp' => 'required',
@@ -160,7 +171,6 @@ class LecturerController extends Controller
         $data->email = $request->email;
         $data->updated_at = now();
         $data->save();
-
     }
 
     /**
@@ -178,15 +188,15 @@ class LecturerController extends Controller
     {
         $data = Lecturer::query();
         return DataTables::of($data)
-        ->addColumn('action', function($data){
-            return view('layout._action_lecturer', [
-                'data' => $data,
-                'url_edit' => route('lecturer.edit', $data->nidn),
-                'url_destroy' => route('lecturer.destroy', $data->nidn)
-            ]);
-        })
-        ->addIndexColumn()
-        ->rawColumns(['action'])
-        ->make(true);
+            ->addColumn('action', function ($data) {
+                return view('layout._action_lecturer', [
+                    'data' => $data,
+                    'url_edit' => route('lecturer.edit', $data->nidn),
+                    'url_destroy' => route('lecturer.destroy', $data->nidn)
+                ]);
+            })
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
     }
 }
