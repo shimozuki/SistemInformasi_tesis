@@ -36,6 +36,7 @@
                                 <th>No</th>
                                 <th>Dosen Penguji</th>
                                 <th>Mahasiswa</th>
+                                <th>Dosen Pembimbing</th>
                                 <th>Ruangan</th>
                                 <th>Tanggal</th>
                                 <th>Jam</th>
@@ -48,6 +49,7 @@
                                 <th>No</th>
                                 <th>Dosen Penguji</th>
                                 <th>Mahasiswa</th>
+                                <th>Dosen Pembimbing</th>
                                 <th>Ruangan</th>
                                 <th>Tanggal</th>
                                 <th>Jam</th>
@@ -71,7 +73,7 @@
 <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script>
-    $(function () {
+    $(function() {
         $('#example1').DataTable({
             responsive: true,
             processing: true,
@@ -100,6 +102,10 @@
                     name: 'nama_mhs'
                 },
                 {
+                    data: 'nama_pembimbing',
+                    name: 'nama_pembimbing'
+                },
+                {
                     data: 'ruangan',
                     name: 'ruangan'
                 },
@@ -121,6 +127,5 @@
 
         });
     });
-
 </script>
 @endpush

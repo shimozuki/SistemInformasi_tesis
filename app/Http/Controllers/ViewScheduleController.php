@@ -135,9 +135,14 @@ class ViewScheduleController extends Controller
         }
         $table = DB::table('schedule')
             ->join('students', 'schedule.id_jadwal', '=', 'students.id_jadwal')
-            ->join('lecturers', 'schedule.id_jadwal', '=', 'lecturers.id_jadwal')
-            ->join('lecturers', 'students.id_grup', '=', 'lecturers.id_grup')
-            ->select('schedule.*', 'students.nama as nama_mhs', 'lecturers.nama as nama_penguji')
+            ->join('lecturers as penguji', 'schedule.id_jadwal', '=', 'penguji.id_jadwal') // Dosen penguji
+            ->join('lecturers as pembimbing', 'students.id_grup', '=', 'pembimbing.id_grup') // Dosen pembimbing
+            ->select(
+                'schedule.*',
+                'students.nama as nama_mhs',
+                'penguji.nama as nama_penguji',
+                'pembimbing.nama as nama_pembimbing' // Jika ingin mengambil pembimbing juga
+            )
             ->where('students.id_jadwal', $data->id_jadwal)
             ->get();
         return DataTables::of($table)
