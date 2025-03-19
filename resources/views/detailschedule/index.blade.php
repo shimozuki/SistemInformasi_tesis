@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Data {{ $schedule->ruangan}}</h1>
+                <h1>Jadwal {{ \Carbon\Carbon::parse($schedule->tanggal)->translatedFormat('l, d F Y') }} {{ $schedule->jam }} WITA (Ruangan {{ $schedule->ruangan }})</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -39,6 +39,7 @@
                                 <th>No</th>
                                 <th>Nama</th>
                                 <th>Jurusan</th>
+                                <th>Pembimbing</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -49,6 +50,7 @@
                                 <th>No</th>
                                 <th>Nama</th>
                                 <th>Jurusan</th>
+                                <th>Pembimbing</th>
                                 <th>Aksi</th>
                             </tr>
                         </tfoot>
@@ -62,7 +64,7 @@
             <!-- /.card -->
             <div class="card">
                 <div class="card-header">
-                    Dosen
+                    Dosen Penguji
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive">
@@ -124,6 +126,10 @@
                 {
                     data: 'jurusan',
                     name: 'jurusan'
+                },
+                {
+                    data: 'pembimbing',
+                    name: 'pembimbing'
                 },
                 {
                     data: 'action',

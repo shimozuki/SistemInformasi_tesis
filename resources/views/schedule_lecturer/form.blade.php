@@ -1,6 +1,5 @@
 {!! Form::model($data, [
-'route' => $data->exists ? ['schedulelecturer.update', $data->nidn] : ['schedulelecturer.store'],
-'method' => $data->exists ? 'PUT' : 'POST'
+'route' => ['updatejadwaldosen', $data->nidn]
 ]) !!}
 <div class="row">
     <div class="col-md-12">

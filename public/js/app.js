@@ -73,15 +73,12 @@ $('#modal-btn-save').click(function (event) {
         error: function (xhr) {
             var res = xhr.responseJSON;
 
-            if ($.isEmptyObject(res) == false) {
-                $.each(res.errors, function (key, value) {
-                    $('#' + key)
-                        .closest('.form-control')
-                        .addClass('is-invalid')
-                        .closest('.form-group')
-                        .append('<div class="invalid-feedback">' + value + '</div>')
+        Swal.fire({
+                    title: 'Error!',
+                    icon: 'error',
+                    text: res.message // Display error message
                 });
-            }
+
         }
     })
 });

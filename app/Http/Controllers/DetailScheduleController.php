@@ -20,37 +20,37 @@ class DetailScheduleController extends Controller
      */
     public function index($id)
     {
-        if(Session::get('login')){
-             if (Session::get('hak_akses') == 'mahasiswa'){
-                    $data = DB::table('students')
-                                ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
-                                ->select('students.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'dosen'){
-                    $data = DB::table('lecturers')
-                                ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
-                                ->select('lecturers.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'lppm'){
-                    $data = DB::table('institutions')
-                                ->join('auths', 'institutions.id_auth', '=', 'auths.id_auth')
-                                ->select('institutions.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'prodi'){
-                    $data = DB::table('departments')
-                                ->join('auths', 'departments.id_auth', '=', 'auths.id_auth')
-                                ->select('departments.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                }
-                $schedule = Schedule::findOrFail($id);
-                return view('detailschedule/index', compact('schedule','data'));
-            }else{
-                 return redirect('login');
+        if (Session::get('login')) {
+            if (Session::get('hak_akses') == 'mahasiswa') {
+                $data = DB::table('students')
+                    ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
+                    ->select('students.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'dosen') {
+                $data = DB::table('lecturers')
+                    ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
+                    ->select('lecturers.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'lppm') {
+                $data = DB::table('institutions')
+                    ->join('auths', 'institutions.id_auth', '=', 'auths.id_auth')
+                    ->select('institutions.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'prodi') {
+                $data = DB::table('departments')
+                    ->join('auths', 'departments.id_auth', '=', 'auths.id_auth')
+                    ->select('departments.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
             }
+            $schedule = Schedule::findOrFail($id);
+            return view('detailschedule/index', compact('schedule', 'data'));
+        } else {
+            return redirect('login');
+        }
     }
 
     /**
@@ -114,9 +114,7 @@ class DetailScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-    }
+    public function destroy($id) {}
 
     public function updatestudent($id)
     {
@@ -136,7 +134,8 @@ class DetailScheduleController extends Controller
     {
         $data = DB::table('schedule')
             ->join('students', 'schedule.id_jadwal', '=', 'students.id_jadwal')
-            ->select('schedule.*', 'students.*')
+            ->join('lecturers', 'students.id_grup', '=', 'lecturers.id_grup')
+            ->select('schedule.*', 'students.*', 'lecturers.nama as pembimbing')
             ->where('schedule.id_jadwal', $id)
             ->get();
         return DataTables::of($data)
@@ -150,6 +149,7 @@ class DetailScheduleController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
+
     public function dataTableLecturer($id)
     {
         $data = DB::table('schedule')

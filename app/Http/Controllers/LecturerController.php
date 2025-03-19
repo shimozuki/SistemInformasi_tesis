@@ -144,7 +144,7 @@ class LecturerController extends Controller
         $this->validate(
             $request,
             [
-                'nidn' => 'required|number',
+                'nidn' => 'required',
                 'nama' => 'required',
                 'alamat' => 'required',
                 'no_hp' => 'required',

@@ -21,32 +21,32 @@ class ViewScheduleController extends Controller
     public function index()
     {
         if (Session::get('login')) {
-            if (Session::get('hak_akses') == 'mahasiswa'){
-                    $data = DB::table('students')
-                                ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
-                                ->select('students.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'dosen'){
-                    $data = DB::table('lecturers')
-                                ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
-                                ->select('lecturers.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'lppm'){
-                    $data = DB::table('institutions')
-                                ->join('auths', 'institutions.id_auth', '=', 'auths.id_auth')
-                                ->select('institutions.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                } else if(Session::get('hak_akses') == 'prodi'){
-                    $data = DB::table('departments')
-                                ->join('auths', 'departments.id_auth', '=', 'auths.id_auth')
-                                ->select('departments.*', 'auths.*')
-                                ->where('auths.id_auth', Session::get('id_auth'))
-                                ->first();
-                }
-            return view('view_schedule/index',compact('data'));
+            if (Session::get('hak_akses') == 'mahasiswa') {
+                $data = DB::table('students')
+                    ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
+                    ->select('students.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'dosen') {
+                $data = DB::table('lecturers')
+                    ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
+                    ->select('lecturers.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'lppm') {
+                $data = DB::table('institutions')
+                    ->join('auths', 'institutions.id_auth', '=', 'auths.id_auth')
+                    ->select('institutions.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            } else if (Session::get('hak_akses') == 'prodi') {
+                $data = DB::table('departments')
+                    ->join('auths', 'departments.id_auth', '=', 'auths.id_auth')
+                    ->select('departments.*', 'auths.*')
+                    ->where('auths.id_auth', Session::get('id_auth'))
+                    ->first();
+            }
+            return view('view_schedule/index', compact('data'));
         } else {
             return redirect('login');
         }
@@ -136,6 +136,7 @@ class ViewScheduleController extends Controller
         $table = DB::table('schedule')
             ->join('students', 'schedule.id_jadwal', '=', 'students.id_jadwal')
             ->join('lecturers', 'schedule.id_jadwal', '=', 'lecturers.id_jadwal')
+            ->join('lecturers', 'students.id_grup', '=', 'lecturers.id_grup')
             ->select('schedule.*', 'students.nama as nama_mhs', 'lecturers.nama as nama_penguji')
             ->where('students.id_jadwal', $data->id_jadwal)
             ->get();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Lecturer;
 use App\Schedule;
+use App\Student;
 use DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -16,10 +17,7 @@ class ScheduleLecturerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-    
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
@@ -77,12 +75,40 @@ class ScheduleLecturerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // public function update(Request $request, $id)
+    // {
+    //     $data = Lecturer::findOrFail($id);
+    //     $data->id_jadwal = $request->id_jadwal;
+    //     $data->save();
+    // }
     public function update(Request $request, $id)
     {
-        $data = Lecturer::findOrFail($id);
-        $data->id_jadwal = $request->id_jadwal;
-        $data->save();
+        $this->validate($request, [
+            'id_jadwal' => 'required|exists:schedule,id_jadwal',
+        ]);
+
+        $lecturer = Lecturer::findOrFail($id);
+
+        $studentInSameGroup = Student::where('id_grup', $lecturer->id_grup)
+            ->where('id_jadwal', $request->id_jadwal)
+            ->exists();
+
+        if ($studentInSameGroup) {
+            return response()->json(['message' => 'Dosen Penguji dan mahasiswa tidak boleh dalam bimbingan yang sama pada jadwal yang sama.'], 400);
+        }
+        // $studentCount = Student::where('id_jadwal', $request->id_jadwal)->count();
+
+        // if ($studentCount > 0) {
+        //     return response()->json(['message' => 'Hanya satu mahasiswa yang dapat ditugaskan pada jadwal ini.'], 400);
+        // }
+
+        $lecturer->id_jadwal = $request->id_jadwal;
+        $lecturer->save();
+
+        return response()->json(['message' => 'Update berhasil.'], 200);
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -90,12 +116,9 @@ class ScheduleLecturerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-    }
     public function dataTable()
     {
-        $data = Lecturer::where('id_jadwal', NULL)->get();
+        $data = Lecturer::all();
         return DataTables::of($data)
             ->addColumn('action', function ($data) {
                 return view('layout._action_schedule_ed_del', [

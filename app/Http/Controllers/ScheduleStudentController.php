@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Lecturer;
 use App\Student;
 use DataTables;
 use Illuminate\Support\Facades\DB;
@@ -15,9 +16,7 @@ class ScheduleStudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
@@ -77,7 +76,26 @@ class ScheduleStudentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'id_jadwal' => 'required|exists:schedule,id_jadwal',
+        ]);
+
         $data = Student::findOrFail($id);
+
+        $studentInSameGroup = Lecturer::where('id_grup', $data->id_grup)
+            ->where('id_jadwal', $request->id_jadwal)
+            ->exists();
+
+        if ($studentInSameGroup) {
+            return response()->json(['message' => 'Dosen Penguji dan mahasiswa tidak boleh dalam bimbingan yang sama pada jadwal yang sama.'], 400);
+        }
+
+        $studentCount = Student::where('id_jadwal', $request->id_jadwal)->count();
+
+        if ($studentCount > 0) {
+            return response()->json(['message' => 'Hanya satu mahasiswa yang dapat ditugaskan pada jadwal ini.'], 400);
+        }
+
         $data->id_jadwal = $request->id_jadwal;
         $data->save();
     }
