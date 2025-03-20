@@ -143,7 +143,6 @@ class ViewScheduleController extends Controller
                 'penguji.nama as nama_penguji',
                 'pembimbing.nama as nama_pembimbing' // Jika ingin mengambil pembimbing juga
             )
-            ->where('students.id_jadwal', $data->id_jadwal)
             ->get();
         return DataTables::of($table)
             ->addColumn('waktu', function ($data) {
