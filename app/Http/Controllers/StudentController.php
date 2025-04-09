@@ -19,9 +19,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        if(Session::get('login')){
+        if (Session::get('login')) {
             return view('student/index');
-        }else{
+        } else {
             return redirect('login');
         }
     }
@@ -45,15 +45,16 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $id_auth = 'A'.date('dmy').Str::random(3);
+        $id_auth = 'A' . date('dmy') . Str::random(3);
         $this->validate(
             $request,
             [
-                'nim' => 'required',
+                'nim' => 'required|unique:students,nim',
                 'nama' => 'required',
             ],
             [
                 'nim.required' => 'Kolom nim grup wajib diisi',
+                'nim.unique' => 'NIM sudah ada, silakan gunakan NIM yang lain.',
                 'nama.required' => 'Kolom nama wajib diisi',
 
             ]
@@ -72,12 +73,12 @@ class StudentController extends Controller
                 'created_at' => now()
             ]
         ]);
-        
+
         $data = DB::table('auths')->insert([
             [
                 'id_auth' => $id_auth,
                 'username' => $request->nim,
-                'password' => bcrypt($request->nim.'Aa*'),
+                'password' => bcrypt($request->nim . 'Aa*'),
                 'hak_akses' => 'mahasiswa',
                 'created_at' => now(),
                 'name' => $request->nama,
@@ -106,7 +107,7 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
+    {
 
         $data = Student::findOrFail($id);
         return view('student.form', compact('data'));
@@ -150,7 +151,6 @@ class StudentController extends Controller
         $data->tahun = $request->tahun;
         $data->updated_at = now();
         $data->save();
-
     }
 
     /**
@@ -168,15 +168,15 @@ class StudentController extends Controller
     {
         $data = Student::query();
         return DataTables::of($data)
-        ->addColumn('action', function($data){
-            return view('layout._action_student', [
-                'data' => $data,
-                'url_edit' => route('student.edit', $data->nim),
-                'url_destroy' => route('student.destroy', $data->nim)
-            ]);
-        })
-        ->addIndexColumn()
-        ->rawColumns(['action'])
-        ->make(true);
+            ->addColumn('action', function ($data) {
+                return view('layout._action_student', [
+                    'data' => $data,
+                    'url_edit' => route('student.edit', $data->nim),
+                    'url_destroy' => route('student.destroy', $data->nim)
+                ]);
+            })
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
     }
 }
