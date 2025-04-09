@@ -52,6 +52,23 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Nim</th>
+                                    <th>Judul</th>
+                                    <th>File Kartu Bimbingan</th>
+                                    <th>File Tesis</th>
+                                    <th>File Bebas plagiasi</th>
+                                    <th>File Bebas administrasi</th>
+                                    <th>pasfoto</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No</th>
                                     <th>Judul</th>
                                     <th>Nama</th>
                                     <th>Nim</th>
@@ -63,24 +80,7 @@
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Judul</th>
-                                        <th>Nama</th>
-                                        <th>Nim</th>
-                                        <th>File Kartu Bimbingan</th>
-                                        <th>File Tesis</th>
-                                        <th>File Bebas plagiasi</th>
-                                        <th>File Bebas administrasi</th>
-                                        <th>pasfoto</th>
-                                        <th>Status</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </tfoot>
+                            </tfoot>
                         </table>
                     </div>
                     <!-- /.card-body -->
