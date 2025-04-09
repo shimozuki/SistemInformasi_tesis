@@ -69,9 +69,9 @@
                             <tfoot>
                                 <tr>
                                     <th>No</th>
-                                    <th>Judul</th>
                                     <th>Nama</th>
                                     <th>Nim</th>
+                                    <th>Judul</th>
                                     <th>File Kartu Bimbingan</th>
                                     <th>File Tesis</th>
                                     <th>File Bebas plagiasi</th>
