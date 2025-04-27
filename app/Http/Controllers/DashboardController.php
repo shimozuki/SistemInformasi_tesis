@@ -127,10 +127,14 @@ class DashboardController extends Controller
         $student = Student::count();
         $lecturer = Lecturer::count();
         $group = Group::count();
+        $thesisRegistrations = Prasidang::count();
+        $successfulDefenses = Lecturer::count();
         return response()->json([
             'student' => $student,
             'lecturer' => $lecturer,
-            'group' => $group
+            'group' => $group,
+            'thesisRegistrations' => $thesisRegistrations,
+            'successfulDefenses' => $successfulDefenses
         ]);
     }
 
@@ -148,6 +152,23 @@ class DashboardController extends Controller
             'ratio' => $ratio,
         ]);
     }
+
+    public function getThesisRatioYearlyDetail()
+    {
+        $years = range(date('Y') - 5, date('Y')); // 5 tahun terakhir
+        $result = [];
+
+        foreach ($years as $year) {
+            $result[] = [
+                'year' => $year,
+                'thesisRegistrations' => Prasidang::whereYear('created_at', $year)->count(),
+                'successfulDefenses' => Lecturer::whereYear('created_at', $year)->count(),
+            ];
+        }
+
+        return response()->json($result);
+    }
+
 
     public function chartGrad()
     {

@@ -187,3 +187,5 @@ Route::any('/table/ViewSchedule', 'ViewScheduleController@dataTable')->name('tab
 
 Route::get('/apidashboard', 'DashboardController@jumlahRow')->name('api.dashboard');
 Route::get('/apijur', 'DashboardController@chartGrad')->name('front.grad');
+
+Route::get('/thesis-ratio-yearly-detail', [DashboardController::class, 'getThesisRatioYearlyDetail'])->name('api.thesis-ratio-yearly-detail');

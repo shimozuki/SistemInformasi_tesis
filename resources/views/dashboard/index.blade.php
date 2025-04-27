@@ -38,6 +38,7 @@
                 </div>
             </div>
             <!-- ./col -->
+            @if(Session::get('hak_akses') == 'lppm' || Session::get('hak_akses') == 'prodi')
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-success">
@@ -48,6 +49,35 @@
                     </div>
                     <div class="icon">
                         <i class="fas fa-user-tie"></i>
+                    </div>
+                    <a class="small-box-footer">&nbsp;</a>
+                </div>
+            </div>
+            @endif
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h3 id="jumlah_pendaftaran"></h3>
+
+                        <p>Jumlah Pendaftaran Tesis</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <a class="small-box-footer">&nbsp;</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3 id="jumlah_sidang"></h3>
+
+                        <p>Jumlah Mahasiswa Sidang</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-graduation-cap"></i>
                     </div>
                     <a class="small-box-footer">&nbsp;</a>
                 </div>
@@ -67,20 +97,8 @@
                     <a class="small-box-footer">&nbsp;</a>
                 </div>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                        <h3>3</h3>
+            <div class="col-md-6">
 
-                        <p>Jumlah Jurusan</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-school"></i>
-                    </div>
-                    <a class="small-box-footer">&nbsp;</a>
-                </div>
             </div>
             <div class="col-md-6">
                 <!-- PIE CHART -->
@@ -102,8 +120,6 @@
                     </div>
                     <!-- /.card-body -->
                 </div>
-            </div>
-            <div class="col-md-6">
                 <!-- BAR CHART -->
                 <div class="card card-primary">
                     <div class="card-header">
@@ -120,8 +136,27 @@
                     </div>
                     <!-- /.card-body -->
                 </div>
+
+                <!-- <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Grafik Statistik Thesis per Tahun</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="thesisChart"></canvas>
+                    </div>
+                </div> -->
+
+
             </div>
             <div class="col-md-6">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">Grafik Statistik Thesis per Tahun</h3>
+                    </div>
+                    <div class="card-tools">
+                        <canvas id="thesisChart"></canvas>
+                    </div>
+                </div>
                 <!-- BAR CHART -->
                 <div class="card card-success">
                     <div class="card-header">
@@ -321,17 +356,79 @@
                 $('#jumlah_mhs').html(data.student);
                 $('#jumlah_dosen').html(data.lecturer);
                 $('#jumlah_grup').html(data.group);
+                $('#jumlah_pendaftaran').html(data.thesisRegistrations);
+                $('#jumlah_sidang').html(data.successfulDefenses);
 
             }
         })
     })
 </script>
 <script>
-    $(function () {
+    $(function() {
+        // Lakukan request AJAX ke API untuk mendapatkan data
+        $.ajax({
+            url: '{{ route("api.thesis-ratio-yearly-detail") }}', // Pastikan route ini benar
+            method: 'GET',
+            success: function(data) {
+                console.log(data); // Debug: Lihat data yang diterima dari server
+
+                // Pastikan data memiliki struktur yang benar
+                if (data && Array.isArray(data)) {
+                    var years = data.map(item => item.year);
+                    var thesisRegistrations = data.map(item => item.thesisRegistrations);
+                    var successfulDefenses = data.map(item => item.successfulDefenses);
+
+                    // Mendapatkan elemen canvas dan membuat grafik
+                    var ctx = document.getElementById('thesisChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: years,
+                            datasets: [{
+                                    label: 'Pendaftaran Tesis',
+                                    backgroundColor: '#007bff',
+                                    data: thesisRegistrations
+                                },
+                                {
+                                    label: 'Sidang Berhasil',
+                                    backgroundColor: '#28a745',
+                                    data: successfulDefenses
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        autoSkip: false
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                } else {
+                    console.error('Data yang diterima tidak valid:', data);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Terjadi kesalahan dalam pengambilan data:', xhr, error);
+            }
+        });
+    });
+</script>
+<script>
+    $(function() {
         $.ajax({
             url: '{{ route("api.thesis-ratio") }}',
             method: 'GET',
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
 
                 var ctx = document.getElementById("thesisRatioChart").getContext('2d');
