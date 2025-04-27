@@ -6,6 +6,7 @@ use App\Http\Controllers\ManageProposalController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\PrasidangController;
 use App\Http\Controllers\ScheduleLecturerController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -189,3 +190,4 @@ Route::get('/apidashboard', 'DashboardController@jumlahRow')->name('api.dashboar
 Route::get('/apijur', 'DashboardController@chartGrad')->name('front.grad');
 
 Route::get('/thesis-ratio-yearly-detail', [DashboardController::class, 'getThesisRatioYearlyDetail'])->name('api.thesis-ratio-yearly-detail');
+Route::post('/import', [StudentController::class, 'import'])->name('import');

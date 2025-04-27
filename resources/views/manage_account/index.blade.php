@@ -45,6 +45,9 @@
                       <div class="card-header">
                         <a href="{{ route('student.create')}}" class="btn btn-primary modal-show"
                           title="Tambah Data">Tambah</a>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#importModal" title="Impor Excel">
+                          Impor Excel
+                        </button>
                       </div>
                       <!-- /.card-header -->
                       <div class="card-body table-responsive">
@@ -221,6 +224,32 @@
     </div>
     <!-- /.row -->
   </div><!-- /.container-fluid -->
+  <!-- Modal untuk Import Excel -->
+  <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="importModalLabel">Impor Data dari Excel</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Form untuk mengupload file Excel -->
+          <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+              <label for="file">Pilih File Excel</label>
+              <input type="file" name="file" id="file" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Impor</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   @include('layout/_modal')
 </section>
 @endsection
@@ -230,132 +259,197 @@
 <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('plugins/select2/js/select2.full.min.js')}}"></script>
 <script>
-  $(function () {
+  $(function() {
     $('#example1').DataTable({
-      responsive : true,
-      processing : true,
-      serverSide : true,
-      order: [[1, 'asc']],
-        ajax: {
-            'url':"{{route('table.student')}}",
-            'type': 'POST',
-            'headers': {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-            },
-      columns: [
-        {data: 'DT_RowIndex', name:'nim'},
-        {data: 'nama', name:'nama'},
-        {data: 'email', name:'email'},
-        {data: 'jurusan', name:'jurusan'},
-        {data: 'no_hp', name:'no_hp'},
-        {data: 'action', name: 'action'}
+      responsive: true,
+      processing: true,
+      serverSide: true,
+      order: [
+        [1, 'asc']
       ],
-      columnDefs: [
-        {
-          "targets": [0, -1],
-          "orderable": false,
-          "searchable" : true
+      ajax: {
+        'url': "{{route('table.student')}}",
+        'type': 'POST',
+        'headers': {
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
-      ]
-      
+      },
+      columns: [{
+          data: 'DT_RowIndex',
+          name: 'nim'
+        },
+        {
+          data: 'nama',
+          name: 'nama'
+        },
+        {
+          data: 'email',
+          name: 'email'
+        },
+        {
+          data: 'jurusan',
+          name: 'jurusan'
+        },
+        {
+          data: 'no_hp',
+          name: 'no_hp'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        }
+      ],
+      columnDefs: [{
+        "targets": [0, -1],
+        "orderable": false,
+        "searchable": true
+      }]
+
     });
   });
 </script>
 <script>
-  $(function () {
+  $(function() {
     $('#example2').DataTable({
-      responsive : true,
-      processing : true,
-      serverSide : true,
-      order: [[1, 'asc']],
-        ajax: {
-            'url':"{{route('table.lecturer')}}",
-            'type': 'POST',
-            'headers': {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-            },
-      columns: [
-        {data: 'DT_RowIndex', name:'nidn'},
-        {data: 'nama', name:'nama'},
-        {data: 'email', name:'email'},
-        {data: 'alamat', name:'alamat'},
-        {data: 'action', name: 'action'}
+      responsive: true,
+      processing: true,
+      serverSide: true,
+      order: [
+        [1, 'asc']
       ],
-      columnDefs: [
-        {
-          "targets": [0, -1],
-          "orderable": false,
-          "searchable" : false
+      ajax: {
+        'url': "{{route('table.lecturer')}}",
+        'type': 'POST',
+        'headers': {
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
-      ]
-      
+      },
+      columns: [{
+          data: 'DT_RowIndex',
+          name: 'nidn'
+        },
+        {
+          data: 'nama',
+          name: 'nama'
+        },
+        {
+          data: 'email',
+          name: 'email'
+        },
+        {
+          data: 'alamat',
+          name: 'alamat'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        }
+      ],
+      columnDefs: [{
+        "targets": [0, -1],
+        "orderable": false,
+        "searchable": false
+      }]
+
     });
   });
 </script>
 <script>
-  $(function () {
+  $(function() {
     $('#example3').DataTable({
-      responsive : true,
-      processing : true,
-      serverSide : true,
-      order: [[1, 'asc']],
-        ajax: {
-            'url':"{{route('table.department')}}",
-            'type': 'POST',
-            'headers': {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-            },
-      columns: [
-        {data: 'DT_RowIndex', name: 'id_prodi'},
-        {data: 'nama', name:'nama'},
-        {data: 'email', name:'email'},
-        {data: 'alamat', name:'alamat'},
-        {data: 'jurusan', name:'jurusan'},
-        {data: 'action', name: 'action'}
+      responsive: true,
+      processing: true,
+      serverSide: true,
+      order: [
+        [1, 'asc']
       ],
-      columnDefs: [
-        {
-          "targets": [0, -1],
-          "searchable" : true,
-          "orderable": false
+      ajax: {
+        'url': "{{route('table.department')}}",
+        'type': 'POST',
+        'headers': {
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
-      ]
+      },
+      columns: [{
+          data: 'DT_RowIndex',
+          name: 'id_prodi'
+        },
+        {
+          data: 'nama',
+          name: 'nama'
+        },
+        {
+          data: 'email',
+          name: 'email'
+        },
+        {
+          data: 'alamat',
+          name: 'alamat'
+        },
+        {
+          data: 'jurusan',
+          name: 'jurusan'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        }
+      ],
+      columnDefs: [{
+        "targets": [0, -1],
+        "searchable": true,
+        "orderable": false
+      }]
     });
   });
 </script>
 <script>
-  $(function () {
+  $(function() {
     $('#example4').DataTable({
-      responsive : true,
-      processing : true,
-      serverSide : true,
-      order: [[1, 'asc']],
-        ajax: {
-            'url':"{{route('table.institution')}}",
-            'type': 'POST',
-            'headers': {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-            },
-      columns: [
-        {data: 'DT_RowIndex', name: 'id_lppm'},
-        {data: 'nidn', name:'nidn'},
-        {data: 'nama', name:'nama'},
-        {data: 'email', name:'email'},
-        {data: 'alamat', name:'alamat'},
-        {data: 'action', name: 'action'}
+      responsive: true,
+      processing: true,
+      serverSide: true,
+      order: [
+        [1, 'asc']
       ],
-      columnDefs: [
-        {
-          "targets": [0, -1],
-          "orderable": false,
-          "searchable" : true
+      ajax: {
+        'url': "{{route('table.institution')}}",
+        'type': 'POST',
+        'headers': {
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
-      ]
-      
+      },
+      columns: [{
+          data: 'DT_RowIndex',
+          name: 'id_lppm'
+        },
+        {
+          data: 'nidn',
+          name: 'nidn'
+        },
+        {
+          data: 'nama',
+          name: 'nama'
+        },
+        {
+          data: 'email',
+          name: 'email'
+        },
+        {
+          data: 'alamat',
+          name: 'alamat'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        }
+      ],
+      columnDefs: [{
+        "targets": [0, -1],
+        "orderable": false,
+        "searchable": true
+      }]
+
     });
   });
 </script>

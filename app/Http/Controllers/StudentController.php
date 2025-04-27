@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\StudentsImport;
 
 class StudentController extends Controller
 {
@@ -87,6 +89,19 @@ class StudentController extends Controller
         ]);
 
         return $data;
+    }
+
+    public function import(Request $request)
+    {
+        // Validasi file Excel
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        // Import file Excel
+        Excel::import(new StudentsImport, $request->file('file'));
+
+        return back()->with('success', 'Data berhasil diimport!');
     }
 
     /**

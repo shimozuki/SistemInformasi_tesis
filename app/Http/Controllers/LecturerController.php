@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\LecturersImport;
 
 class LecturerController extends Controller
 {
@@ -107,6 +109,24 @@ class LecturerController extends Controller
             return response()->json(['message' => 'Terjadi kesalahan saat menambahkan dosen', 'error' => $e->getMessage()], 500);
         }
     }
+
+    public function import(Request $request)
+    {
+        // Validasi file Excel
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        // Proses impor data dari file Excel
+        try {
+            Excel::import(new LecturersImport, $request->file('file'));
+
+            return back()->with('success', 'Data dosen berhasil diimpor!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan saat mengimpor file: ' . $e->getMessage());
+        }
+    }
+
 
 
     /**
