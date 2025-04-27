@@ -41,7 +41,7 @@
             @if(Session::get('hak_akses') == 'lppm' || Session::get('hak_akses') == 'prodi')
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-success">
+                <div class="small-box bg-dark">
                     <div class="inner">
                         <h3 id="jumlah_dosen"></h3>
 
@@ -54,6 +54,20 @@
                 </div>
             </div>
             @endif
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3 id="jumlah_dosen"></h3>
+
+                        <p>Lulusan</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <a class="small-box-footer">&nbsp;</a>
+                </div>
+            </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-primary">
@@ -136,17 +150,6 @@
                     </div>
                     <!-- /.card-body -->
                 </div>
-
-                <!-- <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Grafik Statistik Thesis per Tahun</h3>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="thesisChart"></canvas>
-                    </div>
-                </div> -->
-
-
             </div>
             <div class="col-md-6">
                 <div class="card card-dark">

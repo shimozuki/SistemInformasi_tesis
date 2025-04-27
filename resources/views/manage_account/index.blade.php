@@ -92,6 +92,9 @@
                       <div class="card-header">
                         <a href="{{ route('lecturer.create')}}" class="btn btn-primary modal-show"
                           title="Tambah Data">Tambah</a>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#importModal" title="Impor Excel">
+                          Impor Excel
+                        </button>
                       </div>
                       <!-- /.card-header -->
                       <div class="card-body table-responsive">
@@ -230,6 +233,33 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="importModalLabel">Impor Data dari Excel</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Form untuk mengupload file Excel -->
+          <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+              <label for="file">Pilih File Excel</label>
+              <input type="file" name="file" id="file" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Impor</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal untuk Import Excel -->
+  <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="importModalLabel">Impor Data Dosen dari Excel</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

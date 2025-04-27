@@ -24,7 +24,7 @@ class LecturersImport implements ToModel, WithHeadingRow
                 'id_auth' => $id_auth,
                 'nama' => $row['nama'],
                 'alamat' => $row['alamat'],
-                'email' => $row['email'],
+                'email' => $row['nidn'] . '@uts.ac.id',
                 'no_hp' => $row['no_hp'],
                 'pembimbing' => $row['pembimbing'],
                 'penguji' => $row['penguji'],
@@ -39,7 +39,7 @@ class LecturersImport implements ToModel, WithHeadingRow
                 'hak_akses' => 'dosen',
                 'created_at' => now(),
                 'name' => $row['nama'],
-                'email' => $row['email']
+                'email' => $row['nidn'] . '@uts.ac.id',
             ]);
 
             DB::commit();

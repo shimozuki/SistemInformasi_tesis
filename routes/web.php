@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\ManageGradeController;
 use App\Http\Controllers\ManageProposalController;
 use App\Http\Controllers\MessagesController;
@@ -191,3 +192,4 @@ Route::get('/apijur', 'DashboardController@chartGrad')->name('front.grad');
 
 Route::get('/thesis-ratio-yearly-detail', [DashboardController::class, 'getThesisRatioYearlyDetail'])->name('api.thesis-ratio-yearly-detail');
 Route::post('/import', [StudentController::class, 'import'])->name('import');
+Route::post('/import', [LecturerController::class, 'import'])->name('import');
