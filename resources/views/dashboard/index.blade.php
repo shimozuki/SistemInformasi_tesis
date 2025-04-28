@@ -359,8 +359,8 @@
                 $('#jumlah_mhs').html(data.student);
                 $('#jumlah_dosen').html(data.lecturer);
                 $('#jumlah_grup').html(data.group);
-                $('#jumlah_pendaftaran').html(data.thesisRegistrations);
-                $('#jumlah_sidang').html(data.successfulDefenses);
+                $('#jumlah_pendaftaran').html(data.successfulDefenses);
+                $('#jumlah_sidang').html(data.thesisRegistrations);
 
             }
         })
