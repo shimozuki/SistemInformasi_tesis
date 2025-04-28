@@ -14,5 +14,6 @@ class Grade extends Model
         'nilai_bimbingan',
         'nilai_sidang',
         'nilai_pengajuan',
+        'berita_acara',
     ];
 }

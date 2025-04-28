@@ -27,23 +27,28 @@
         <div class="col-12">
             <!-- /.card -->
             <div class="card">
+                @if (Session::get('hak_akses') == 'lppm')
                 <div class="card-header">
                     <a href="{{ route('grade')}}" class="btn btn-primary">Export</a>
                     <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#addGradeModal">
                         Add Grade
                     </button>
                 </div>
+                @endif
                 <!-- /.card-header -->
                 <div class="card-body table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>No</th>
+                                @if (Session::get('hak_akses') == 'lppm')
                                 <th>Nim</th>
                                 <th>Nama</th>
                                 <th>Nilai Proposal</th>
                                 <th>Nilai Bimbingan</th>
                                 <th>Nilai Sidang</th>
+                                @endif
+                                <th>Berita Acara</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,11 +56,14 @@
                         <tfoot>
                             <tr>
                                 <th>No</th>
+                                @if (Session::get('hak_akses') == 'lppm')
                                 <th>Nim</th>
                                 <th>Nama</th>
                                 <th>Nilai Proposal</th>
                                 <th>Nilai Bimbingan</th>
                                 <th>Nilai Sidang</th>
+                                @endif
+                                <th>Berita Acara</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -79,13 +87,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(['route' => ['manage_grade.store'], 'method' => 'POST']) !!}
+                    {!! Form::open(['route' => ['manage_grade.store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
                         <label for="nim" class="control-label">NIM</label>
                         {!! Form::select('nim', $nims->pluck('nim', 'nim'), null, ['class' => 'form-control', 'id' => 'nim']) !!}
                     </div>
                     <div class="form-group">
-                        <label for="nilai_pengajuan" class="control-label">Nilai proposal</label>
+                        <label for="nilai_pengajuan" class="control-label">Nilai Proposal</label>
                         {!! Form::text('nilai_pengajuan', null, ['class' => 'form-control', 'id' => 'nilai_pengajuan']) !!}
                     </div>
                     <div class="form-group">
@@ -96,6 +104,13 @@
                         <label for="nilai_sidang" class="control-label">Nilai Sidang</label>
                         {!! Form::text('nilai_sidang', null, ['class' => 'form-control', 'id' => 'nilai_sidang']) !!}
                     </div>
+
+                    <!-- Tambahan Upload Berita Acara -->
+                    <div class="form-group">
+                        <label for="berita_acara" class="control-label">Upload Berita Acara (PDF)</label>
+                        {!! Form::file('berita_acara', ['class' => 'form-control-file', 'accept' => 'application/pdf', 'id' => 'berita_acara']) !!}
+                    </div>
+
                     <div class="form-group">
                         {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                     </div>
@@ -104,6 +119,7 @@
             </div>
         </div>
     </div>
+
 
 </section>
 @endsection
@@ -152,7 +168,17 @@
                     data: 'nilai_sidang',
                     name: 'nilai_sidang'
                 },
-
+                {
+                    data: 'berita_acara',
+                    name: 'berita_acara',
+                    render: function(data, type, row, meta) {
+                        if (data) {
+                            return `<a href="${data}" class="btn btn-sm btn-primary" target="_blank">Download</a>`;
+                        } else {
+                            return '-';
+                        }
+                    }
+                }
             ],
             columnDefs: [{
                 "targets": [0, -1],

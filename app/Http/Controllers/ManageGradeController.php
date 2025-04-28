@@ -80,6 +80,7 @@ class ManageGradeController extends Controller
             'nilai_bimbingan' => 'required|numeric',
             'nilai_pengajuan' => 'required|numeric',
             'nilai_sidang' => 'required|numeric',
+            'berita_acara' => 'nullable|file|mimes:pdf|max:2048', // max 2MB
         ]);
 
         // Generate id_nilai in the format NIYYMMDDx
@@ -92,11 +93,24 @@ class ManageGradeController extends Controller
         // Combine to form id_nilai
         $id_nilai = 'NI' . $year . $month . $day . $randomLetter;
 
-        // Create the Grade record with the generated id_nilai
-        Grade::create(array_merge($validatedData, ['id_nilai' => $id_nilai]));
+        // Handle file upload
+        $beritaAcaraPath = null;
+        if ($request->hasFile('berita_acara')) {
+            $file = $request->file('berita_acara');
+            $filename = $id_nilai . '_berita_acara.' . $file->getClientOriginalExtension();
+            $beritaAcaraPath = $file->storeAs('berita_acara', $filename, 'public');
+            // disimpan di storage/app/public/berita_acara/
+        }
+
+        // Create the Grade record
+        Grade::create(array_merge($validatedData, [
+            'id_nilai' => $id_nilai,
+            'berita_acara' => $beritaAcaraPath, // simpan path file di database (pastikan kolomnya ada)
+        ]));
 
         return back()->with('success', 'Grade added successfully.');
     }
+
 
 
     /**
