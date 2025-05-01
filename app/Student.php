@@ -23,4 +23,9 @@ class Student extends Model
         'email',
         'tahun',
     ];
+
+    public function grade()
+    {
+        return $this->hasOne(Grade::class, 'nim', 'nim');
+    }
 }

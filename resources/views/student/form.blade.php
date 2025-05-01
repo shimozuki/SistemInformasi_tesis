@@ -48,7 +48,7 @@
                     <input type="checkbox" value="check" name="check">
                 </span>
             </div>
-            <input type="text" class="form-control" name="password" value="{{$data->.'Aa*'}}" readonly>
+            <input type="text" class="form-control" name="password" value="{{ $data->nim . 'Aa*' }}" readonly>
         </div>
         @endif
     </div>

@@ -193,3 +193,4 @@ Route::get('/apijur', 'DashboardController@chartGrad')->name('front.grad');
 Route::get('/thesis-ratio-yearly-detail', [DashboardController::class, 'getThesisRatioYearlyDetail'])->name('api.thesis-ratio-yearly-detail');
 Route::post('/import', [StudentController::class, 'import'])->name('import');
 Route::post('/import', [LecturerController::class, 'import'])->name('import');
+Route::get('/export-pdf', [StudentController::class, 'exportPDF'])->name('export.pdf');

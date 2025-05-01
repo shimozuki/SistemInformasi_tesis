@@ -74,7 +74,7 @@
                     <div class="inner">
                         <h3 id="jumlah_pendaftaran"></h3>
 
-                        <p>Jumlah Pendaftaran Tesis</p>
+                        <p>Jumlah Dosen Pembimbing</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-book"></i>

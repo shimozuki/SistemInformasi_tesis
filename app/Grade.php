@@ -16,4 +16,9 @@ class Grade extends Model
         'nilai_pengajuan',
         'berita_acara',
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class, 'nim', 'nim');
+    }
 }

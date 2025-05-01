@@ -33,6 +33,7 @@
                     <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#addGradeModal">
                         Add Grade
                     </button>
+                    <a href="{{ route('export.pdf') }}" class="btn btn-primary" target="_blank">Export PDF Data Mahasiswa</a>
                 </div>
                 @endif
                 <!-- /.card-header -->

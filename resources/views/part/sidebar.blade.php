@@ -65,6 +65,14 @@
           </p>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{url('/grade_student')}}" class="nav-link">
+          <i class="nav-icon fas fa-hand-holding"></i>
+          <p>
+            Berita Acara
+          </p>
+        </a>
+      </li>
       }
       @elseif(Session::get('hak_akses') == 'prodi'){
       <li class="nav-header">PRODI</li>

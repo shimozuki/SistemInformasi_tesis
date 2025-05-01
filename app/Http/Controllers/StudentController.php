@@ -194,4 +194,18 @@ class StudentController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
+
+    public function exportPDF()
+    {
+        $sudahSidang = Student::whereHas('grade')->get();
+        $belumSidang = Student::whereDoesntHave('grade')->get();
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::setOptions(['isRemoteEnabled' => true])
+            ->loadView('manage_prasidang.export_pdf', [
+                'sudahSidang' => $sudahSidang,
+                'belumSidang' => $belumSidang
+            ]);
+
+        return $pdf->download('data-mahasiswa.pdf');
+    }
 }
