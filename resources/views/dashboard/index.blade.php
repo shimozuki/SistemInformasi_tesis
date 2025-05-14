@@ -84,11 +84,25 @@
             </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-danger">
+                <div class="small-box bg-success">
                     <div class="inner">
                         <h3 id="jumlah_sidang"></h3>
 
-                        <p>Jumlah Mahasiswa Sidang</p>
+                        <p>Jumlah Mahasiswa Telah Sidang</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <a class="small-box-footer">&nbsp;</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3 id="belum_sidang"></h3>
+
+                        <p>Jumlah Mahasiswa Belum Sidang</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-graduation-cap"></i>
@@ -378,6 +392,7 @@
                 $('#jumlah_grup').html(data.group);
                 $('#jumlah_pendaftaran').html(data.successfulDefenses);
                 $('#jumlah_sidang').html(data.thesisRegistrations);
+                $('#belum_sidang').html(data.belumsidang);
 
             }
         })
