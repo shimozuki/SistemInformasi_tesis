@@ -220,6 +220,14 @@
           </p>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{url('/grade_student')}}" class="nav-link">
+          <i class="nav-icon fas fa-hand-holding"></i>
+          <p>
+            Download Beria Acara
+          </p>
+        </a>
+      </li>
       <li class="nav-header">Kirim Pesan</li>
       <li class="nav-item">
         <a href="{{url('/chat')}}" class="nav-link">

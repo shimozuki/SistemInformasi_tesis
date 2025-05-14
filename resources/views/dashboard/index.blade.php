@@ -23,6 +23,7 @@
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
+            @if(Session::get('hak_akses') == 'lppm' || Session::get('hak_akses') == 'prodi' || Session::get('hak_akses') == 'dosen')
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
@@ -38,7 +39,7 @@
                 </div>
             </div>
             <!-- ./col -->
-            @if(Session::get('hak_akses') == 'lppm' || Session::get('hak_akses') == 'prodi')
+
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-dark">
@@ -53,7 +54,6 @@
                     <a class="small-box-footer">&nbsp;</a>
                 </div>
             </div>
-            @endif
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-success">
@@ -182,6 +182,7 @@
                     <!-- /.card-body -->
                 </div>
             </div>
+            @endif
 
             <div class="col-md-12">
                 <div class="card card-warning">
