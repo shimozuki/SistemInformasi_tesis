@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Beranda</h1>
+                <h1 class="m-0 text-dark">Selamat Datang {{ $data->nama }}</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -183,6 +183,21 @@
                 </div>
             </div>
             @endif
+
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>Status Akademik</h3>
+
+                        <p>Aktif</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <a class="small-box-footer">&nbsp;</a>
+                </div>
+            </div>
 
             <div class="col-md-12">
                 <div class="card card-warning">
