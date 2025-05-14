@@ -130,7 +130,7 @@ class DashboardController extends Controller
         $group = Group::count();
         $thesisRegistrations = Prasidang::count();
         $successfulDefenses = Lecturer::count();
-        $belumsidang = $thesisRegistrations - $student;
+        $belumsidang =  $student - $thesisRegistrations;
         return response()->json([
             'student' => $student,
             'lecturer' => $lecturer,

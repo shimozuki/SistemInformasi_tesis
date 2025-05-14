@@ -56,20 +56,6 @@
             </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                        <h3 id="jumlah_dosen"></h3>
-
-                        <p>Lulusan</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <a class="small-box-footer">&nbsp;</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
                 <div class="small-box bg-primary">
                     <div class="inner">
                         <h3 id="jumlah_pendaftaran"></h3>
