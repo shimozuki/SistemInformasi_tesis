@@ -7,6 +7,7 @@ use App\Student;
 use App\Lecturer;
 use App\Group;
 use App\Prasidang;
+use App\SubmissionProposal;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -140,9 +141,9 @@ class DashboardController extends Controller
 
     public function getThesisRatio()
     {
-        $thesisRegistrations = Prasidang::count();
+        $thesisRegistrations = SubmissionProposal::count();
 
-        $successfulDefenses = Lecturer::count();
+        $successfulDefenses = Prasidang::count();
 
         $ratio = $successfulDefenses > 0 ? $thesisRegistrations / $successfulDefenses : 0;
 
@@ -161,8 +162,8 @@ class DashboardController extends Controller
         foreach ($years as $year) {
             $result[] = [
                 'year' => $year,
-                'thesisRegistrations' => Prasidang::whereYear('created_at', $year)->count(),
-                'successfulDefenses' => Lecturer::whereYear('created_at', $year)->count(),
+                'thesisRegistrations' => SubmissionProposal::whereYear('created_at', $year)->count(),
+                'successfulDefenses' => Prasidang::whereYear('created_at', $year)->count(),
             ];
         }
 

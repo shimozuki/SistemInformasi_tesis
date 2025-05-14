@@ -42,13 +42,11 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                @if (Session::get('hak_akses') == 'lppm')
                                 <th>Nim</th>
                                 <th>Nama</th>
                                 <th>Nilai Proposal</th>
                                 <th>Nilai Bimbingan</th>
                                 <th>Nilai Sidang</th>
-                                @endif
                                 <th>Berita Acara</th>
                             </tr>
                         </thead>
@@ -57,13 +55,11 @@
                         <tfoot>
                             <tr>
                                 <th>No</th>
-                                @if (Session::get('hak_akses') == 'lppm')
                                 <th>Nim</th>
                                 <th>Nama</th>
                                 <th>Nilai Proposal</th>
                                 <th>Nilai Bimbingan</th>
                                 <th>Nilai Sidang</th>
-                                @endif
                                 <th>Berita Acara</th>
                             </tr>
                         </tfoot>

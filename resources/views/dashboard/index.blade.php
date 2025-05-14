@@ -183,7 +183,7 @@
                 </div>
             </div>
             @endif
-
+            @if(Session::get('hak_akses') == 'mahasiswa')
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
@@ -198,6 +198,7 @@
                     <a class="small-box-footer">&nbsp;</a>
                 </div>
             </div>
+            @endif
 
             <div class="col-md-12">
                 <div class="card card-warning">
