@@ -120,28 +120,43 @@ class ViewScheduleController extends Controller
     }
     public function dataTable()
     {
-        if (Session::get('hak_akses') == 'mahasiswa') {
-            $data = DB::table('students')
-                ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
-                ->select('students.*', 'auths.*')
-                ->where('auths.id_auth', Session::get('id_auth'))
-                ->first();
-        } else if (Session::get('hak_akses') == 'dosen') {
-            $data = DB::table('lecturers')
-                ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
-                ->select('lecturers.*', 'auths.*')
-                ->where('auths.id_auth', Session::get('id_auth'))
-                ->first();
-        }
+        // if (Session::get('hak_akses') == 'mahasiswa') {
+        //     $data = DB::table('students')
+        //         ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
+        //         ->select('students.*', 'auths.*')
+        //         ->where('auths.id_auth', Session::get('id_auth'))
+        //         ->first();
+        // } else if (Session::get('hak_akses') == 'dosen') {
+        //     $data = DB::table('lecturers')
+        //         ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
+        //         ->select('lecturers.*', 'auths.*')
+        //         ->where('auths.id_auth', Session::get('id_auth'))
+        //         ->first();
+        // }
         $table = DB::table('schedule')
             ->join('students', 'schedule.id_jadwal', '=', 'students.id_jadwal')
-            ->join('lecturers as penguji', 'schedule.id_jadwal', '=', 'penguji.id_jadwal') // Dosen penguji
-            ->join('lecturers as pembimbing', 'students.id_grup', '=', 'pembimbing.id_grup') // Dosen pembimbing
+            ->join('lecturers as penguji', 'schedule.id_jadwal', '=', 'penguji.id_jadwal')
+            ->join('lecturers as pembimbing', 'students.id_grup', '=', 'pembimbing.id_grup')
             ->select(
-                'schedule.*',
+                'schedule.id_jadwal',
+                'schedule.tanggal',
+                'schedule.jam',
+                'schedule.ruangan',
+                'schedule.created_at',
+                'schedule.updated_at',
                 'students.nama as nama_mhs',
-                'penguji.nama as nama_penguji',
-                'pembimbing.nama as nama_pembimbing' // Jika ingin mengambil pembimbing juga
+                DB::raw('pembimbing.nama as nama_pembimbing'),
+                DB::raw("GROUP_CONCAT(penguji.nama SEPARATOR ' & ') as nama_penguji")
+            )
+            ->groupBy(
+                'schedule.id_jadwal',
+                'schedule.tanggal',
+                'schedule.jam',
+                'schedule.ruangan',
+                'schedule.created_at',
+                'schedule.updated_at',
+                'students.nama',
+                'pembimbing.nama'
             )
             ->get();
         return DataTables::of($table)

@@ -62,7 +62,7 @@ class ScheduleStudentController extends Controller
         $schedule = DB::table('schedule')->get();
         $selectSchedule = [];
         foreach ($schedule as $schedule) {
-            $selectSchedule[$schedule->id_jadwal] = $schedule->ruangan;
+            $selectSchedule[$schedule->id_jadwal] = $schedule->ruangan . '-' . $schedule->tanggal . ' - ' . $schedule->jam;
         }
         return view('schedule_student.form', compact('data', 'selectSchedule'));
     }
