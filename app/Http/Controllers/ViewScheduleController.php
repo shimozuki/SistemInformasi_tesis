@@ -133,7 +133,9 @@ class ViewScheduleController extends Controller
         //         ->where('auths.id_auth', Session::get('id_auth'))
         //         ->first();
         // }
-        $table = DB::table('schedule')
+        $hakAkses = Session::get('hak_akses');
+        $idUser = Session::get('id_auth');
+        $query = DB::table('schedule')
             ->join('students', 'schedule.id_jadwal', '=', 'students.id_jadwal')
             ->join('lecturers as penguji', 'schedule.id_jadwal', '=', 'penguji.id_jadwal')
             ->join('lecturers as pembimbing', 'students.id_grup', '=', 'pembimbing.id_grup')
@@ -157,8 +159,17 @@ class ViewScheduleController extends Controller
                 'schedule.updated_at',
                 'students.nama',
                 'pembimbing.nama'
-            )
-            ->get();
+            );
+        if ($hakAkses === 'mahasiswa') {
+            $idJadwal = DB::table('students')->where('id_auth', $idUser)->value('id_jadwal');
+
+
+
+            if ($idJadwal) {
+                $query->where('students.id_jadwal', $idJadwal);
+            }
+        }
+        $table = $query->get();
         return DataTables::of($table)
             ->addColumn('waktu', function ($data) {
                 $jam = explode(':', $data->jam);
