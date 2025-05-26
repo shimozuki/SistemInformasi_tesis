@@ -133,7 +133,7 @@ class ViewScheduleController extends Controller
         //         ->where('auths.id_auth', Session::get('id_auth'))
         //         ->first();
         // }
-        $hakAkses = Session::get('hak_akses');
+        $hak_akses = Session::get('hak_akses');
         $idUser = Session::get('id_auth');
         $query = DB::table('schedule')
             ->join('students', 'schedule.id_jadwal', '=', 'students.id_jadwal')
@@ -160,13 +160,11 @@ class ViewScheduleController extends Controller
                 'students.nama',
                 'pembimbing.nama'
             );
-        if ($hakAkses === 'mahasiswa') {
-            $idJadwal = DB::table('students')->where('id_auth', $idUser)->value('id_jadwal');
+        if ($hak_akses === 'mahasiswa') {
+            $id_jadwal = Student::where('id_auth', $idUser)->value('id_jadawal');
 
-
-
-            if ($idJadwal) {
-                $query->where('students.id_jadwal', $idJadwal);
+            if ($id_jadwal) {
+                $query->where('students.id_jadwal', $id_jadwal);
             }
         }
         $table = $query->get();
