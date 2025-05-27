@@ -120,8 +120,22 @@ class ViewScheduleController extends Controller
     }
     public function dataTable()
     {
-        $hakAkses = Session::get('hak_akses');
+        // if (Session::get('hak_akses') == 'mahasiswa') {
+        //     $data = DB::table('students')
+        //         ->join('auths', 'students.id_auth', '=', 'auths.id_auth')
+        //         ->select('students.*', 'auths.*')
+        //         ->where('auths.id_auth', Session::get('id_auth'))
+        //         ->first();
+        // } else if (Session::get('hak_akses') == 'dosen') {
+        //     $data = DB::table('lecturers')
+        //         ->join('auths', 'lecturers.id_auth', '=', 'auths.id_auth')
+        //         ->select('lecturers.*', 'auths.*')
+        //         ->where('auths.id_auth', Session::get('id_auth'))
+        //         ->first();
+        // }
+        $hak_akses = Session::get('hak_akses');
         $idUser = Session::get('id_auth');
+
         $query = DB::table('schedule')
             ->join('students', 'schedule.id_jadwal', '=', 'students.id_jadwal')
             ->join('lecturers as penguji', 'schedule.id_jadwal', '=', 'penguji.id_jadwal')
@@ -147,16 +161,25 @@ class ViewScheduleController extends Controller
                 'students.nama',
                 'pembimbing.nama'
             );
-        if ($hakAkses === 'mahasiswa') {
-            $idJadwal = DB::table('students')->where('id_auth', $idUser)->value('id_jadwal');
 
-
-
-            if ($idJadwal) {
-                $query->where('students.id_jadwal', $idJadwal);
+        // Filter jika login sebagai mahasiswa
+        if ($hak_akses === 'mahasiswa') {
+            $id_jadwal = Student::where('id_auth', $idUser)->value('id_jadwal');
+            if ($id_jadwal) {
+                $query->where('students.id_jadwal', $id_jadwal);
             }
         }
+
+        // Filter jika login sebagai dosen
+        if ($hak_akses === 'dosen') {
+            $query->where(function ($q) use ($idUser) {
+                $q->where('penguji.id_auth', $idUser)
+                    ->orWhere('pembimbing.id_auth', $idUser);
+            });
+        }
+
         $table = $query->get();
+
         return DataTables::of($table)
             ->addColumn('waktu', function ($data) {
                 $jam = explode(':', $data->jam);
