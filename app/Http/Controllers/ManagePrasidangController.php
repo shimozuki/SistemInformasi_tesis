@@ -154,7 +154,7 @@ class ManagePrasidangController extends Controller
         if ($status == 'belum') {
             $query->whereNull('students.id_jadwal');
         } elseif ($status == 'telah') {
-            $query->whereNotNull('students  .id_jadwal');
+            $query->whereNotNull('students.id_jadwal');
         }
         $data = $query->get();
         return DataTables::of($data)
