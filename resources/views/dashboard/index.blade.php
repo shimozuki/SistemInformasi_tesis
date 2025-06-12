@@ -58,12 +58,12 @@
                 <!-- small box -->
                 <div class="small-box bg-primary">
                     <div class="inner">
-                        <h3 id="jumlah_pendaftaran"></h3>
+                        <h3 id="jumlah_sidang"></h3>
 
-                        <p>Jumlah Dosen Pembimbing</p>
+                        <p>Jumlah Mahasiswa Registrasi Berkas Sidang</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-book"></i>
+                        <i class="fas fa-graduation-cap"></i>
                     </div>
                     <a class="small-box-footer">&nbsp;</a>
                 </div>
@@ -72,9 +72,9 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3 id="jumlah_sidang"></h3>
+                        <h3 id="telahsidang"></h3>
 
-                        <p>Jumlah Mahasiswa Telah Sidang</p>
+                        <p>Jumlah Mahasiswa Sidang</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-graduation-cap"></i>
@@ -103,7 +103,7 @@
                     <div class="inner">
                         <h3 id="jumlah_grup"></h3>
 
-                        <p>Jumlah Kelompok</p>
+                        <p>Jumlah Belum Registrasi Sidang</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-users"></i>
@@ -379,6 +379,7 @@
                 $('#jumlah_pendaftaran').html(data.successfulDefenses);
                 $('#jumlah_sidang').html(data.thesisRegistrations);
                 $('#belum_sidang').html(data.belumsidang);
+                $('#telahsidang').html(data.telahsidang);
 
             }
         })

@@ -127,10 +127,17 @@ class DashboardController extends Controller
     {
         $student = Student::count();
         $lecturer = Lecturer::count();
-        $group = Group::count();
         $thesisRegistrations = Prasidang::count();
+        $group = $student - $thesisRegistrations;
         $successfulDefenses = Lecturer::count();
-        $belumsidang =  $student - $thesisRegistrations;
+        $belumsidang = DB::table('prasidang')
+            ->join('students', 'prasidang.nim', '=', 'students.nim')
+            ->whereNull('students.id_jadwal')
+            ->count();
+        $telahsidang = DB::table('prasidang')
+            ->join('students', 'prasidang.nim', '=', 'students.nim')
+            ->whereNotNull('students.id_jadwal')
+            ->count();
         return response()->json([
             'student' => $student,
             'lecturer' => $lecturer,
@@ -138,6 +145,7 @@ class DashboardController extends Controller
             'thesisRegistrations' => $thesisRegistrations,
             'successfulDefenses' => $successfulDefenses,
             'belumsidang' => $belumsidang,
+            'telahsidang' => $telahsidang,
         ]);
     }
 

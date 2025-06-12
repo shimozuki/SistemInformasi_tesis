@@ -112,7 +112,10 @@ class ScheduleStudentController extends Controller
     }
     public function dataTable()
     {
-        $data = Student::where('id_jadwal', NULL)->get();
+        $data = Student::join('prasidang', 'students.nim', '=', 'prasidang.nim')
+            ->whereNull('students.id_jadwal')
+            ->select('students.*') // atau select yang kamu butuhkan
+            ->get();
         return DataTables::of($data)
             ->addColumn('action', function ($data) {
                 return view('layout._action_schedule_ed_del', [
