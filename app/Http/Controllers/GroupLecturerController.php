@@ -17,9 +17,9 @@ class GroupLecturerController extends Controller
      */
     public function index()
     {
-        if(Session::get('login')){
+        if (Session::get('login')) {
             return view('group_lecturer/index');
-        }else{
+        } else {
             return redirect('login');
         }
     }
@@ -67,10 +67,10 @@ class GroupLecturerController extends Controller
         $data = Lecturer::findOrFail($id);
         $group = DB::table('groups')->get();
         $selectGroup = [];
-        foreach ($group as $group){
+        foreach ($group as $group) {
             $selectGroup[$group->id_grup] = $group->nama_grup;
         }
-        return view('group_lecturer.form', compact('data','selectGroup'));
+        return view('group_lecturer.form', compact('data', 'selectGroup'));
     }
 
     /**
@@ -93,23 +93,20 @@ class GroupLecturerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        
-    }
+    public function destroy($id) {}
     public function dataTable()
     {
-        $data = Lecturer::where('id_grup', NULL)->get();
+        $data = Lecturer::all();
         return DataTables::of($data)
-        ->addColumn('action', function($data){
-            return view('layout._action_grouplecturer', [
-                'data' => $data,
-                'url_edit' => route('grouplecturer.edit', $data->nidn),
-                'url_destroy' => route('grouplecturer.destroy', $data->nidn)
-            ]);
-        })
-        ->addIndexColumn()
-        ->rawColumns(['action'])
-        ->make(true);
-    }   
+            ->addColumn('action', function ($data) {
+                return view('layout._action_grouplecturer', [
+                    'data' => $data,
+                    'url_edit' => route('grouplecturer.edit', $data->nidn),
+                    'url_destroy' => route('grouplecturer.destroy', $data->nidn)
+                ]);
+            })
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 }

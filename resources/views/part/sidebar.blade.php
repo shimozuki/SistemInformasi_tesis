@@ -57,14 +57,6 @@
           </p>
         </a>
       </li>
-      <li class="nav-item">
-        <a href="{{url('/pascasidang')}}" class="nav-link">
-          <i class="nav-icon fas fa-file-upload"></i>
-          <p>
-            Pascasidang
-          </p>
-        </a>
-      </li>
       }
       @elseif(Session::get('hak_akses') == 'prodi'){
       <li class="nav-header">PRODI</li>
@@ -105,14 +97,6 @@
           <i class="nav-icon fas fa-archive"></i>
           <p>
             Kelola Prasidang
-          </p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="{{url('/viewpasca')}}" class="nav-link">
-          <i class="nav-icon fas fa-hand-holding"></i>
-          <p>
-            Pascasidang
           </p>
         </a>
       </li>
@@ -160,14 +144,14 @@
           </p>
         </a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a href="{{url('/viewpasca')}}" class="nav-link">
           <i class="nav-icon fas fa-hand-holding"></i>
           <p>
             pascasidang
           </p>
         </a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a href="{{url('/grade_student')}}" class="nav-link">
           <i class="nav-icon fas fa-hand-holding"></i>

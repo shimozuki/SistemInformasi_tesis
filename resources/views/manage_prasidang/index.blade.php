@@ -47,6 +47,17 @@
                 <!-- /.card -->
                 <div class="card">
                     <!-- /.card-header -->
+                    <ul class="nav nav-tabs mb-3" id="prasidangTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="belum-tab" data-toggle="tab" href="#belumSidang" role="tab"
+                                aria-controls="belumSidang" aria-selected="true">Belum Sidang</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="telah-tab" data-toggle="tab" href="#telahSidang" role="tab"
+                                aria-controls="telahSidang" aria-selected="false">Telah Sidang</a>
+                        </li>
+                    </ul>
+
                     <div class="card-body table-responsive">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
@@ -96,8 +107,11 @@
 <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script>
-    $(function() {
-        $('#example1').DataTable({
+    let table; // Biar bisa destroy/reinit
+
+    function loadTable(status = 'belum') {
+        if (table) table.destroy(); // Destroy jika sudah ada
+        table = $('#example1').DataTable({
             responsive: true,
             processing: true,
             serverSide: true,
@@ -105,11 +119,14 @@
                 [2, 'asc']
             ],
             ajax: {
-                'url': "{{route('table.manage_prasidang')}}",
-                'type': 'POST',
-                'headers': {
+                url: "{{ route('table.manage_prasidang') }}",
+                type: 'POST',
+                headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
+                },
+                data: {
+                    status: status
+                } // Ini yg beda tiap tab
             },
             columns: [{
                     data: 'DT_RowIndex',
@@ -161,7 +178,20 @@
                 "orderable": false,
                 "searchable": false
             }]
+        });
+    }
 
+    $(function() {
+        loadTable('belum'); // Default load
+
+        // Ganti isi DataTable ketika tab diklik
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            let target = $(e.target).attr('href');
+            if (target === "#belumSidang") {
+                loadTable('belum');
+            } else if (target === "#telahSidang") {
+                loadTable('telah');
+            }
         });
     });
 </script>

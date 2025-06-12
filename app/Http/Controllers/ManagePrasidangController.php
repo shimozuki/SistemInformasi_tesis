@@ -117,7 +117,7 @@ class ManagePrasidangController extends Controller
         //
     }
 
-    public function dataTable()
+    public function dataTable(Request $request)
     {
         if (Session::get('login')) {
             if (Session::get('hak_akses') == 'mahasiswa') {
@@ -146,10 +146,17 @@ class ManagePrasidangController extends Controller
                     ->first();
             }
         }
-        $data = DB::table('prasidang')
+        $status = $request->input('status', 'belum');
+        $query = DB::table('prasidang')
             ->join('students', 'prasidang.nim', '=', 'students.nim')
-            ->select('students.*', 'prasidang.*')
-            ->get();
+            ->select('students.*', 'prasidang.*');
+
+        if ($status == 'belum') {
+            $query->whereNull('students.id_jadwal');
+        } elseif ($status == 'telah') {
+            $query->whereNotNull('students  .id_jadwal');
+        }
+        $data = $query->get();
         return DataTables::of($data)
             ->addColumn('file_tesis', function ($data) {
                 $path = 'tesis/' . $data->file_tesis;
