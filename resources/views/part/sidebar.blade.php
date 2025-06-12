@@ -172,14 +172,14 @@
       }
       @elseif(Session::get('hak_akses') == 'dosen'){
       <li class="nav-header">Dosen</li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a href="{{url('/manage_guidance')}}" class="nav-link">
           <i class="nav-icon fas fa-chalkboard-teacher"></i>
           <p>
             Kelola Bimbingan
           </p>
         </a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a href="{{url('/view_schedule')}}" class="nav-link">
           <i class="nav-icon fas fa-calendar-alt"></i>
